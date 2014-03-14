@@ -19,10 +19,9 @@
 		}
 		
 			.tracker-row {
-				height:150px;
+				height:160px;
 				background:#F8F7F1;
 				cursor:pointer;
-				border-bottom:1px solid #4c5b52;
 			}
 			
 			.tracker-row:hover {
@@ -30,40 +29,36 @@
 			}
 				
 				.tracker-row h2 {
-					float:left;
-					font:300 34px "helvetica neue";
+					font:300 24px "helvetica neue";
 					margin:5px 10px;
 				}
 				
 				.tracker-row span {
-					font:300 16px "helvetica neue";
-					float:left;
+					font:300 14px "helvetica neue";
 					height:14px;
-					margin:18px 0;
+					margin:5px 10px;
+					width:580px;
 				}
 				
-				.tracker-row div:first-of-type {
-					height:50px;
-				}
-				.tracker-row div:last-of-type {
-					height:100px;
-				}
-				
+				.tracker-info {
+					height:59px;
+					border-bottom:1px solid #8c9b93;
+					
+				}				
 					
 			
-			.tracker-detail {
-				height:100px;
-				background:red;
-			}
-											
-				.tracker-step {
-					width:75.714285714px;
-					background:gray;
-					height:75.714285714px;
-					margin:12.142857143px 5px;
-					float:left;
+				.tracker-detail {
+					height:100px;
 				}
-				
+										
+					.tracker-step {
+						width:75.714285714px;
+						background:gray;
+						height:75.714285714px;
+						margin:12.142857143px 5px;
+						float:right;
+					}
+			
 		
 					
 		#tracker-footer {
@@ -173,7 +168,7 @@
 	
 	function populateVitals(){
 		for (i=0; i < billsCleaned.length; i++){
-			$("#edtracker-container").append("<div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div><h2>" + billsCleaned[i].bill_number + ":</h2><span>" + billsCleaned[i].title + "</span></div><div data=\"" + i + "\" class=\"tracker-detail\"> <div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div><div data=\"4\" class=\"tracker-step\">\</div><div data=\"5\" class=\"tracker-step\"></div><div data=\"6\" class=\"tracker-step\"></div><div data=\"7\" class=\"tracker-step\"></div><div data=\"8\" class=\"tracker-step\"></div></div></div></div>");
+			$("#edtracker-container").append("<div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><span>" + billsCleaned[i].title + "</span></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div><div data=\"4\" class=\"tracker-step\">\</div><div data=\"5\" class=\"tracker-step\"></div><div data=\"6\" class=\"tracker-step\"></div></div></div>");
 		}
 		$("#edtracker-container").append("<div id=\"tracker-footer\"></div>");
 	}
