@@ -1,0 +1,197 @@
+<style>
+	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+		
+	
+	#edtracker-container {
+		width:600px;
+		height:auto;
+		margin:0 auto;
+		border:2px solid #4c5b52;
+	}
+		.tracked-bill {
+			border-bottom:2px solid #4c5b52;
+			width:600px;
+			margin:0 0 0 0;
+		}
+		
+		.tracked-bill:last-of-type {
+			border:0;
+		}
+		
+			.tracker-row {
+				height:150px;
+				background:#F8F7F1;
+				cursor:pointer;
+				border-bottom:1px solid #4c5b52;
+			}
+			
+			.tracker-row:hover {
+				background:#FFFFFA;
+			}
+				
+				.tracker-row h2 {
+					float:left;
+					font:300 34px "helvetica neue";
+					margin:5px 10px;
+				}
+				
+				.tracker-row span {
+					font:300 16px "helvetica neue";
+					float:left;
+					height:14px;
+					margin:18px 0;
+				}
+				
+				.tracker-row div:first-of-type {
+					height:50px;
+				}
+				.tracker-row div:last-of-type {
+					height:100px;
+				}
+				
+					
+			
+			.tracker-detail {
+				height:100px;
+				background:red;
+			}
+											
+				.tracker-step {
+					width:75.714285714px;
+					background:gray;
+					height:75.714285714px;
+					margin:12.142857143px 5px;
+					float:left;
+				}
+				
+		
+					
+		#tracker-footer {
+			height:30px;
+			background:#4c5b52;
+		}
+		
+		
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://www.edsource.org/today/wp-content/js/underscore-min.js"></script>
+
+<script>
+	//GLOBAL VARS
+	var trackedBillsAPI = [
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%20364/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", //AB 364 - unannounced visits child care
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%201444/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", //AB1444 - compulsory kindergarten attendence
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%20174/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", //test
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%201256/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", //test
+		"http://openstates.org/api/v1/bills/ca/20132014/SB%20520/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?"//test
+	]
+	var billDetails = [], billsCleaned = [], apiKey = "fbc69b7552fa42979aef5d8009291eb6";
+	
+	//ONLOAD FUNCTION
+	window.onload = function(){
+		executeTracker();
+	}
+	
+	//EXPAND/COLLAPSE FUNCTIONALITY
+	/*$(document).on("click",".tracker-row", function(){
+		var currentBill = $(this).attr("data");
+		var currentState = $(this).attr("data-state");
+		console.log(currentBill)
+		console.log(currentState)
+		if (currentState === "true"){
+			$(".tracker-detail[data='"+ currentBill + "']").add(".tracker-detail[data='"+ currentBill + "'] .tracker-proper").animate({
+				height:0
+			},function(){
+				$(this).css("display","none");
+			})
+			$(this).attr("data-state","false");
+		}
+		else {
+			$(this).attr("data-state","true");
+			$(".tracker-detail[data='"+ currentBill + "']").add(".tracker-detail[data='"+ currentBill + "'] .tracker-proper").css("display","block").animate({
+				height:316.66666668
+			})
+		}
+	});*/
+	
+	
+	//GRAB LEG INFO
+	$(document).ready(function(){
+		//GET DATA
+		for (i=0 ; i<trackedBillsAPI.length;i++){
+			(function(i){ //this is needed because the loop executes before jSON returns value
+				$.getJSON(trackedBillsAPI[i], function (data) {billDetails[i] = data;});
+		   	})(i);
+		}
+
+	});
+	
+	//PRIME FUNCTION
+	function executeTracker(){
+		grabVitals();
+		populateVitals(); 
+		return console.log("Tracker Populated. No Errors.");
+	}
+
+	//MAJOR FUNCTIONS
+	function grabVitals(){
+		
+		//latest type of action
+		for (i=0 ; i < billDetails.length ; i++){
+			var latestAction = billDetails[i].actions.length - 1; //stores latest action number from array
+			var splitDate;
+			billsCleaned[i] = new Object();
+			
+			//grab bill general details -----------------------------------------------//
+				billsCleaned[i].bill_number = billDetails[i].bill_id;
+				billsCleaned[i].url = billDetails[i].sources[0].url;
+				splitDate = billDetails[i].action_dates.first.split(" ");
+				billsCleaned[i].first_action = splitDate[0];
+				billsCleaned[i].passed_lower = billDetails[i].action_dates.passed_lower;
+				billsCleaned[i].passed_upper = billDetails[i].action_dates.passed_upper;
+				billsCleaned[i].signed = billDetails[i].action_dates.signed;
+				billsCleaned[i].chamber_origin = billDetails[i].chamber;
+				billsCleaned[i].summary = billDetails[i].summary;
+				billsCleaned[i].title = billDetails[i].title;
+				splitDate = billDetails[i].updated_at.split(" ");
+				billsCleaned[i].updated = splitDate[0];
+				
+				
+			//---------------------------------------------------------------------//
+			
+			//find latest action -----------------------------------------------//
+				billsCleaned[i].latest_action_type = billDetails[i].actions[latestAction].type[0];
+				billsCleaned[i].latest_action = billDetails[i].actions[latestAction].action;
+				billsCleaned[i].latest_action_actor = billDetails[i].actions[latestAction].actor;
+				splitDate = billDetails[i].actions[latestAction].date.split(" ");
+				billsCleaned[i].lastest_action_date = splitDate[0];
+			//---------------------------------------------------------------------//
+			
+		}
+	}
+	
+	function populateVitals(){
+		for (i=0; i < billsCleaned.length; i++){
+			$("#edtracker-container").append("<div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div><h2>" + billsCleaned[i].bill_number + ":</h2><span>" + billsCleaned[i].title + "</span></div><div data=\"" + i + "\" class=\"tracker-detail\"> <div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div><div data=\"4\" class=\"tracker-step\">\</div><div data=\"5\" class=\"tracker-step\"></div><div data=\"6\" class=\"tracker-step\"></div><div data=\"7\" class=\"tracker-step\"></div><div data=\"8\" class=\"tracker-step\"></div></div></div></div>");
+		}
+		$("#edtracker-container").append("<div id=\"tracker-footer\"></div>");
+	}
+	
+	function populateLatest(){
+		
+	}
+	
+	function populateTracker(){
+		
+	}
+	
+</script>
+
+<div id="edtracker-container">
+	
+	
+
+</div>
+
+
