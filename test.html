@@ -6,12 +6,11 @@
 		width:600px;
 		height:auto;
 		margin:0 auto;
-		border:2px solid #4c5b52;
 	}
 		.tracked-bill {
-			border-bottom:2px solid #4c5b52;
+			border:2px solid #4c5b52;
 			width:600px;
-			margin:0 0 0 0;
+			margin:10px 0;
 		}
 		
 		.tracked-bill:last-of-type {
@@ -53,7 +52,6 @@
 										
 					.tracker-step {
 						width:75.714285714px;
-						background:gray;
 						height:75.714285714px;
 						margin:12.142857143px 5px;
 						float:right;
@@ -143,14 +141,20 @@
 				billsCleaned[i].url = billDetails[i].sources[0].url;
 				splitDate = billDetails[i].action_dates.first.split(" ");
 				billsCleaned[i].first_action = splitDate[0];
-				billsCleaned[i].passed_lower = billDetails[i].action_dates.passed_lower;
-				billsCleaned[i].passed_upper = billDetails[i].action_dates.passed_upper;
-				billsCleaned[i].signed = billDetails[i].action_dates.signed;
 				billsCleaned[i].chamber_origin = billDetails[i].chamber;
 				billsCleaned[i].summary = billDetails[i].summary;
 				billsCleaned[i].title = billDetails[i].title;
 				splitDate = billDetails[i].updated_at.split(" ");
 				billsCleaned[i].updated = splitDate[0];
+				
+				//find intro -----------------------------------------------//
+				if 	(typeof billDetails[i].actions[0].action !== 'undefined' && billDetails[i].actions[0].action !== null){
+					billsCleaned[i].intro = "Yes"
+				}
+				
+				billsCleaned[i].passed_lower = billDetails[i].action_dates.passed_lower;
+				billsCleaned[i].passed_upper = billDetails[i].action_dates.passed_upper;
+				billsCleaned[i].signed = billDetails[i].action_dates.signed;
 				
 				
 			//---------------------------------------------------------------------//
@@ -167,10 +171,20 @@
 	}
 	
 	function populateVitals(){
-		for (i=0; i < billsCleaned.length; i++){
-			$("#edtracker-container").append("<div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><span>" + billsCleaned[i].title + "</span></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div><div data=\"4\" class=\"tracker-step\">\</div><div data=\"5\" class=\"tracker-step\"></div><div data=\"6\" class=\"tracker-step\"></div></div></div>");
-		}
-		$("#edtracker-container").append("<div id=\"tracker-footer\"></div>");
+		//build the actual graphic -----------------------------------------------//
+			for (i=0; i < billsCleaned.length; i++){
+				$("#edtracker-container").append("<div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><span>" + billsCleaned[i].title + "</span></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div><div data=\"4\" class=\"tracker-step\">\</div><div data=\"5\" class=\"tracker-step\"></div><div data=\"6\" class=\"tracker-step\"></div></div></div>");
+			}
+			$("#edtracker-container").append("<div id=\"tracker-footer\"></div>");
+			
+		//populate bill states-----------------------------------------------//
+			for (i=0; i < billsCleaned.length; i++){
+				if (billsCleaned[i].intro === "Yes"){
+					console.log("!!!")
+					$("#tracked-bill-" + i + " .tracker-step:eq(6)").append("<img src=\"assets/bill.png\">");
+				}
+			}
+	
 	}
 	
 	function populateLatest(){
