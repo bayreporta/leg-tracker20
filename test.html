@@ -3,58 +3,67 @@
 		
 	
 	#edtracker-container {
-		width:600px;
+		width:350px;
 		height:auto;
 		margin:0 auto;
 	}
+		
+		.tracker-link {
+			text-decoration:none;
+		}
+		
+		.tracker-link:hover {
+			text-decoration:none;
+		}
+	
 		.tracked-bill {
 			border:2px solid #4c5b52;
-			width:600px;
+			width:350px;
 			margin:10px 0;
+			cursor:pointer;
 		}
 		
-		.tracked-bill:last-of-type {
-			border:0;
-		}
+	
 		
 			.tracker-row {
-				height:160px;
+				height:auto;
 				background:#F8F7F1;
-				cursor:pointer;
+				padding:5px 0 0 0;
 			}
 			
 			.tracker-row:hover {
-				background:#FFFFFA;
+				background:#E0DFDA;
 			}
-				
+			
 				.tracker-row h2 {
 					font:300 24px "helvetica neue";
-					margin:5px 10px;
+					margin:0 10px;
+					color:#4c5b52;
 				}
 				
-				.tracker-row span {
-					font:300 14px "helvetica neue";
-					height:14px;
+				.tracker-row p {
+					font:400 14px "helvetica neue";
 					margin:5px 10px;
-					width:580px;
+					width:330px;
+					color:#8c9b93;
 				}
 				
 				.tracker-info {
-					height:59px;
 					border-bottom:1px solid #8c9b93;
-					
+					padding:0 0 10px 0;
 				}				
 					
 			
 				.tracker-detail {
-					height:100px;
+					height:70px;
+					background:#4c5b52;
 				}
 										
 					.tracker-step {
-						width:75.714285714px;
-						height:75.714285714px;
-						margin:12.142857143px 5px;
-						float:right;
+						width:50px;
+						height:50px;
+						margin:10px 18.7px;
+						float:left;
 					}
 			
 		
@@ -76,38 +85,10 @@
 		"http://openstates.org/api/v1/bills/ca/20132014/AB%20364/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", //AB 364 - unannounced visits child care
 		"http://openstates.org/api/v1/bills/ca/20132014/AB%201444/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", //AB1444 - compulsory kindergarten attendence
 		"http://openstates.org/api/v1/bills/ca/20132014/AB%20174/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", //test
-		"http://openstates.org/api/v1/bills/ca/20132014/AB%201256/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", //test
-		"http://openstates.org/api/v1/bills/ca/20132014/SB%20520/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?"//test
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%20182/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", //test
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%20202/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?"//test
 	]
 	var billDetails = [], billsCleaned = [], apiKey = "fbc69b7552fa42979aef5d8009291eb6";
-	
-	//ONLOAD FUNCTION
-	window.onload = function(){
-		executeTracker();
-	}
-	
-	//EXPAND/COLLAPSE FUNCTIONALITY
-	/*$(document).on("click",".tracker-row", function(){
-		var currentBill = $(this).attr("data");
-		var currentState = $(this).attr("data-state");
-		console.log(currentBill)
-		console.log(currentState)
-		if (currentState === "true"){
-			$(".tracker-detail[data='"+ currentBill + "']").add(".tracker-detail[data='"+ currentBill + "'] .tracker-proper").animate({
-				height:0
-			},function(){
-				$(this).css("display","none");
-			})
-			$(this).attr("data-state","false");
-		}
-		else {
-			$(this).attr("data-state","true");
-			$(".tracker-detail[data='"+ currentBill + "']").add(".tracker-detail[data='"+ currentBill + "'] .tracker-proper").css("display","block").animate({
-				height:316.66666668
-			})
-		}
-	});*/
-	
 	
 	//GRAB LEG INFO
 	$(document).ready(function(){
@@ -117,8 +98,14 @@
 				$.getJSON(trackedBillsAPI[i], function (data) {billDetails[i] = data;});
 		   	})(i);
 		}
-
 	});
+	
+	//ONLOAD FUNCTION
+	window.onload = function(){
+		executeTracker();
+	}
+	
+	
 	
 	//PRIME FUNCTION
 	function executeTracker(){
@@ -133,7 +120,8 @@
 		//latest type of action
 		for (i=0 ; i < billDetails.length ; i++){
 			var latestAction = billDetails[i].actions.length - 1; //stores latest action number from array
-			var splitDate;
+			var splitDate, grabVeto;
+			var stashArray = [];
 			billsCleaned[i] = new Object();
 			
 			//grab bill general details -----------------------------------------------//
@@ -152,9 +140,56 @@
 					billsCleaned[i].intro = "Yes"
 				}
 				
-				billsCleaned[i].passed_lower = billDetails[i].action_dates.passed_lower;
-				billsCleaned[i].passed_upper = billDetails[i].action_dates.passed_upper;
-				billsCleaned[i].signed = billDetails[i].action_dates.signed;
+				
+				//find lower chamber-----------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /passed/i;
+					var result = expression.match(test);
+					if (result !== null && billDetails[i].actions[ii].actor === "lower"){
+						billsCleaned[i].passed_lower = true;
+					}
+				}
+				
+				//find upper chamber-----------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /passed/i;
+					var result = expression.match(test);
+					if (result !== null && billDetails[i].actions[ii].actor === "upper"){
+						billsCleaned[i].passed_upper = true;
+					}
+				}
+				
+				//find enroll-----------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /Enrolled/i;
+					var result = expression.match(test);
+					if (result !== null){
+						billsCleaned[i].enrolled = true;
+					}
+				}
+				
+				//find gov signed------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /Approved by the Governor/i;
+					var result = expression.match(test);
+					if (result !== null){
+						billsCleaned[i].signed = true;
+					}
+				}
+				
+				//find veto -----------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /vetoed by gov/i;
+					var result = expression.match(test);
+					if (result !== null){
+						billsCleaned[i].veto = true;
+					}
+				}
 				
 				
 			//---------------------------------------------------------------------//
@@ -169,20 +204,99 @@
 			
 		}
 	}
+
 	
 	function populateVitals(){
+		
 		//build the actual graphic -----------------------------------------------//
 			for (i=0; i < billsCleaned.length; i++){
-				$("#edtracker-container").append("<div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><span>" + billsCleaned[i].title + "</span></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div><div data=\"4\" class=\"tracker-step\">\</div><div data=\"5\" class=\"tracker-step\"></div><div data=\"6\" class=\"tracker-step\"></div></div></div>");
+				$("#edtracker-container").append("<a class=\"tracker-link\" href=\"" + billsCleaned[i].url + "\"><div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><p>" + billsCleaned[i].title + "</p></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div></div></div></a>");
 			}
-			$("#edtracker-container").append("<div id=\"tracker-footer\"></div>");
 			
 		//populate bill states-----------------------------------------------//
 			for (i=0; i < billsCleaned.length; i++){
+				var origin = billsCleaned[i].chamber_origin;
+				var passedChamber1,passedChamber2 = "none";
+				
+				//BILL INITALIZE
 				if (billsCleaned[i].intro === "Yes"){
-					console.log("!!!")
-					$("#tracked-bill-" + i + " .tracker-step:eq(6)").append("<img src=\"assets/bill.png\">");
+					$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"assets/bill.png\">");
 				}
+				
+				//CHAMBER ONE CHECKS AND BALANCES
+				if (origin === "lower"){
+					//STEP ONE INTRO
+					$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"assets/assembly.png\">");
+					
+					//DID IT PASS?
+					if (billsCleaned[i].passed_lower === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"assets/assembly-pass.png\">");
+						passedChamber1 = true;
+					}
+				}
+				else {
+					//STEP ONE INTRO
+					$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"assets/senate.png\">");
+					
+					//DID IT PASS?
+					if (billsCleaned[i].passed_upper === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"assets/senate-pass.png\">");
+						passedChamber1 = true;
+					}
+				}
+				
+				console.log(passedChamber1)
+				
+				//CHAMBER TWO CHECKS AND BALANCES
+				if (origin === "lower" && passedChamber1 === true){
+					//STEP ONE INTRO
+					$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"assets/senate.png\">");
+					
+					//DID IT PASS?
+					if (billsCleaned[i].passed_upper === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"assets/senate-pass.png\">");
+						passedChamber2 = true;
+					}
+				}
+				else if (passedChamber1 === true){
+					//STEP ONE INTRO
+					$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"assets/assembly.png\">");
+					
+					//DID IT PASS?
+					if (billsCleaned[i].passed_lower === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"assets/assembly-pass.png\">");
+						passedChamber2 = true;
+					}
+				}
+				
+				//GOVERNOR
+				if (passedChamber1 === true && passedChamber2 === true){
+					//ENROLLED?
+					if (billsCleaned[i].enrolled === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").append("<img src=\"assets/enroll.png\">");
+					}
+					
+					if (billsCleaned[i].signed === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"assets/signed.png\">");
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").append("<img src=\"assets/gov-signed.png\">");
+					}
+					
+					//VETOED?
+					if (billsCleaned[i].veto === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"assets/dead.png\">");
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").append("<img src=\"assets/veto.png\">");
+					}
+				}
+				
 			}
 	
 	}
