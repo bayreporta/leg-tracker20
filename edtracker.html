@@ -1,0 +1,354 @@
+<style>
+	html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+		
+	
+	#edtracker-container {
+		width:350px;
+		height:auto;
+		margin:0 auto;
+	}
+		
+		.tracker-link {
+			text-decoration:none;
+		}
+		
+		.tracker-link:hover {
+			text-decoration:none;
+		}
+	
+		.tracked-bill {
+			border:2px solid #4c5b52;
+			width:350px;
+			margin:10px 0;
+			cursor:pointer;
+		}
+		
+	
+		
+			.tracker-row {
+				height:auto;
+				background:#F8F7F1;
+				padding:5px 0 0 0;
+			}
+			
+			.tracker-row:hover {
+				background:#E0DFDA;
+			}
+			
+				.tracker-row h2, #edtracker-header h2 {
+					font:300 24px "helvetica neue";
+					margin:0 10px;
+					color:#4c5b52;
+				}
+				
+				.tracker-row p, #edtracker-header p {
+					font:400 14px "helvetica neue";
+					margin:5px 10px;
+					width:330px;
+					color:#8c9b93;
+				}
+				
+				.tracker-info {
+					border-bottom:1px solid #8c9b93;
+					padding:0 0 10px 0;
+				}				
+					
+			
+				.tracker-detail {
+					height:70px;
+					background:#4c5b52;
+				}
+										
+					.tracker-step {
+						width:50px;
+						height:50px;
+						margin:10px 18.7px;
+						float:left;
+					}
+			
+		
+					
+		#tracker-footer {
+			height:30px;
+			background:#4c5b52;
+		}
+		
+	#edtracker-header {
+		width:350px;
+		margin:0 auto;
+		border:2px solid #4c5b52;
+		background:#F8F7F1;
+		
+	}
+		#edtracker-header h2 {
+			text-align:center;
+			font-weight:700 !important;
+		}
+		
+		#edtracker-header p {
+			color:#4c5b52;
+		}
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://www.edsource.org/today/wp-content/js/underscore-min.js"></script>
+<script src="http://www.edsource.org/wp-content/js/caltip.min.js"></script>
+
+<script>
+	//GLOBAL VARS
+	var trackedBillsAPI = [
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%20364/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%20420/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%201444/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%201866/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%202235/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%202319/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/SB%20837/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/SB%20843/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/SB%20850/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/SB%201108/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/SB%201174/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?" 
+	]
+	
+	var billTitles = [
+		"Child care oversight",
+		"Limit discipline for 'willful defiance'",
+		"Mandatory kindergarten attendance",
+		"Track absenteeism",
+		"School construction bond",
+		"Common Core funding",
+		"Expanding transitional kindergarten",
+		"Teacher dismissal",
+		"Community college baccalaureates",
+		"English learner reclassification",
+		"Repeal bilingual education ban"
+	]
+	var billDetails = [], billsCleaned = [], apiKey = "fbc69b7552fa42979aef5d8009291eb6";
+	
+	//GRAB LEG INFO
+	$(document).ready(function(){
+		//GET DATA
+		for (i=0 ; i<trackedBillsAPI.length;i++){
+			(function(i){ //this is needed because the loop executes before jSON returns value
+				$.getJSON(trackedBillsAPI[i], function (data) {billDetails[i] = data;});
+		   	})(i);
+		}
+	});
+	
+	//ONLOAD FUNCTION
+	window.onload = function(){
+		executeTracker();
+	}
+	
+	
+	
+	//PRIME FUNCTION
+	function executeTracker(){
+		grabVitals();
+		populateVitals(); 
+		return console.log("Tracker Populated. No Errors.");
+	}
+
+	//MAJOR FUNCTIONS
+	function grabVitals(){
+		
+		//latest type of action
+		for (i=0 ; i < billDetails.length ; i++){
+			var latestAction = billDetails[i].actions.length - 1; //stores latest action number from array
+			var splitDate, grabVeto;
+			var stashArray = [];
+			billsCleaned[i] = new Object();
+			
+			//grab bill general details -----------------------------------------------//
+				billsCleaned[i].bill_number = billDetails[i].bill_id;
+				billsCleaned[i].url = billDetails[i].sources[0].url;
+				splitDate = billDetails[i].action_dates.first.split(" ");
+				billsCleaned[i].first_action = splitDate[0];
+				billsCleaned[i].chamber_origin = billDetails[i].chamber;
+				billsCleaned[i].summary = billDetails[i].summary;
+				billsCleaned[i].title = billTitles[i];
+				splitDate = billDetails[i].updated_at.split(" ");
+				billsCleaned[i].updated = splitDate[0];
+				
+				//find intro -----------------------------------------------//
+				if 	(typeof billDetails[i].actions[0].action !== 'undefined' && billDetails[i].actions[0].action !== null){
+					billsCleaned[i].intro = "Yes"
+				}
+				
+				
+				//find lower chamber-----------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /passed/i;
+					var result = expression.match(test);
+					if (result !== null && billDetails[i].actions[ii].actor === "lower"){
+						billsCleaned[i].passed_lower = true;
+					}
+				}
+				
+				
+				
+				//find upper chamber-----------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /passed/i;
+					var result = expression.match(test);
+					if (result !== null && billDetails[i].actions[ii].actor === "upper"){
+						billsCleaned[i].passed_upper = true;
+					}
+				}
+				
+				//find enroll-----------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /Enrolled/i;
+					var result = expression.match(test);
+					if (result !== null){
+						billsCleaned[i].enrolled = true;
+					}
+				}
+				
+				//find gov signed------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /Approved by the Governor/i;
+					var result = expression.match(test);
+					if (result !== null){
+						billsCleaned[i].signed = true;
+					}
+				}
+				
+				//find veto -----------------------------------------------//
+				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
+					var expression = billDetails[i].actions[ii].action;
+					var test = /vetoed by gov/i;
+					var result = expression.match(test);
+					if (result !== null){
+						billsCleaned[i].veto = true;
+					}
+				}
+				
+				
+			//---------------------------------------------------------------------//
+			
+			//find latest action -----------------------------------------------//
+				billsCleaned[i].latest_action_type = billDetails[i].actions[latestAction].type[0];
+				billsCleaned[i].latest_action = billDetails[i].actions[latestAction].action;
+				billsCleaned[i].latest_action_actor = billDetails[i].actions[latestAction].actor;
+				splitDate = billDetails[i].actions[latestAction].date.split(" ");
+				billsCleaned[i].lastest_action_date = splitDate[0];
+			//---------------------------------------------------------------------//
+			
+		}
+	}
+
+	
+	function populateVitals(){
+		
+		//build the actual graphic -----------------------------------------------//
+			for (i=0; i < billsCleaned.length; i++){
+				$("#edtracker-container").append("<a class=\"tracker-link\" href=\"" + billsCleaned[i].url + "\"><div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><p>" + billsCleaned[i].title + "</p></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div></div></div></a>");
+			}
+			
+		//populate bill states-----------------------------------------------//
+			for (i=0; i < billsCleaned.length; i++){
+				var origin = billsCleaned[i].chamber_origin;
+				
+				//BILL INITALIZE
+				if (billsCleaned[i].intro === "Yes"){
+					$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/bill.png\">").caltip({title:"Bill Introduced"});
+				}
+				
+				//CHAMBER ONE CHECKS AND BALANCES
+				if (origin === "lower"){
+					//STEP ONE INTRO
+					$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/assembly.png\">").caltip({title:"In Assembly"});
+					
+					//DID IT PASS?
+					if (billsCleaned[i].passed_lower === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/assembly-pass.png\">").data("caltip").changeTitle("Assembly Passed");
+					}
+				}
+				else {
+					//STEP ONE INTRO
+					$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/senate.png\">").caltip({title:"In Senate"});
+					
+					//DID IT PASS?
+					if (billsCleaned[i].passed_upper === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/senate-pass.png\">").data("caltip").changeTitle("Senate Passed");
+					}
+				}
+				
+				
+				//CHAMBER TWO CHECKS AND BALANCES
+				if (origin === "lower" && billsCleaned[i].passed_lower === true){
+					//STEP ONE INTRO
+					$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/senate.png\">").caltip({title:"In Senate"});
+					
+					//DID IT PASS?
+					if (billsCleaned[i].passed_upper === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/senate-pass.png\">").data("caltip").changeTitle("Senate Passed");
+					}
+				}
+				else if (billsCleaned[i].passed_upper === true){
+					//STEP ONE INTRO
+					$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/assembly.png\">").caltip({title:"In Assembly"});
+					
+					//DID IT PASS?
+					if (billsCleaned[i].passed_lower === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/assembly-pass.png\">").data("caltip").changeTitle("Assembly Passed");
+					}
+				}
+				
+				//GOVERNOR
+				if (billsCleaned[i].passed_lower === true && billsCleaned[i].passed_upper === true){
+					//ENROLLED?
+					if (billsCleaned[i].enrolled === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/enroll.png\">").caltip({title:"Awaiting Governor's Decision"});
+					}
+					
+					if (billsCleaned[i].signed === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/signed.png\">").data("caltip").changeTitle("Bill is Law");
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/gov-signed.png\">").data("caltip").changeTitle("Governor Signed");
+					}
+					
+					//VETOED?
+					if (billsCleaned[i].veto === true){
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/dead.png\">").data("caltip").changeTitle("Bill is Dead");
+						$("#tracked-bill-" + i + " .tracker-step:eq(3)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/veto.png\">").data("caltip").changeTitle("Governor Vetoed");
+					}
+				}
+				
+			}
+	
+	}
+	
+	function populateLatest(){
+		
+	}
+	
+	function populateTracker(){
+		
+	}
+	
+</script>
+
+<div id="edtracker-header">
+	<h2>EdSource EdTracker</h2>
+	<p style="font-weight:300px;">Bill status automatically updated daily. Scroll over icon to read the status of a bill. Click on a bill in order to be directed to the official bill page.</p>
+	<p><strong>Graphic by John C. Osborn</strong></p>
+</div>	
+<div id="edtracker-container">
+	
+</div>
+
+
