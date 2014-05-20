@@ -97,8 +97,10 @@
 <script>
 	//GLOBAL VARS
 	var trackedBillsAPI = [
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%20215/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
 		"http://openstates.org/api/v1/bills/ca/20132014/AB%20364/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
 		"http://openstates.org/api/v1/bills/ca/20132014/AB%20420/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
+		"http://openstates.org/api/v1/bills/ca/20132014/AB%201432/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
 		"http://openstates.org/api/v1/bills/ca/20132014/AB%201444/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
 		"http://openstates.org/api/v1/bills/ca/20132014/AB%201866/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
 		"http://openstates.org/api/v1/bills/ca/20132014/AB%202235/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
@@ -107,12 +109,16 @@
 		"http://openstates.org/api/v1/bills/ca/20132014/SB%20843/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
 		"http://openstates.org/api/v1/bills/ca/20132014/SB%20850/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
 		"http://openstates.org/api/v1/bills/ca/20132014/SB%201108/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/SB%201174/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?" 
+		"http://openstates.org/api/v1/bills/ca/20132014/SB%201174/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?",
+		"http://openstates.org/api/v1/bills/ca/20132014/SB%201221/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?" 
+		 
 	]
 	
 	var billTitles = [
+		"Teacher Dismissal",
 		"Child care oversight",
 		"Limit discipline for 'willful defiance'",
+		"Abuse reporting training",
 		"Mandatory kindergarten attendance",
 		"Track absenteeism",
 		"School construction bond",
@@ -121,7 +127,8 @@
 		"Teacher dismissal",
 		"Community college baccalaureates",
 		"English learner reclassification",
-		"Repeal bilingual education ban"
+		"Repeal bilingual education ban",
+		"After-school program standards"
 	]
 	var billDetails = [], billsCleaned = [], apiKey = "fbc69b7552fa42979aef5d8009291eb6";
 	
@@ -247,7 +254,7 @@
 		
 		//build the actual graphic -----------------------------------------------//
 			for (i=0; i < billsCleaned.length; i++){
-				$("#edtracker-container").append("<a class=\"tracker-link\" href=\"" + billsCleaned[i].url + "\"><div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><p>" + billsCleaned[i].title + "</p></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div></div></div></a>");
+				$("#edtracker-container").append("<a onclick=\"_gaq.push(['_trackEvent', 'EDTRACKER', 'Click', 'Bill']);\" target=\"_blank\" class=\"tracker-link\" href=\"" + billsCleaned[i].url + "\"><div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><p>" + billsCleaned[i].title + "</p></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div></div></div></a>");
 			}
 			
 		//populate bill states-----------------------------------------------//
@@ -351,4 +358,14 @@
 	
 </div>
 
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-3051201-4']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
 
