@@ -91,63 +91,40 @@
 </style>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="http://www.edsource.org/today/wp-content/js/underscore-min.js"></script>
 <script src="http://www.edsource.org/wp-content/js/caltip.min.js"></script>
+<script src="http://www.edsource.org/wp-content/js/tabletop.js"></script>
 
 <script>
 	//GLOBAL VARS
-	var trackedBillsAPI = [
-		"http://openstates.org/api/v1/bills/ca/20132014/AB%20215/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/AB%20364/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/AB%20420/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/AB%201432/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/AB%201444/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/AB%201866/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/AB%202235/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/AB%202319/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/SB%20837/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/SB%20843/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/SB%20850/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/SB%201108/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?", 
-		"http://openstates.org/api/v1/bills/ca/20132014/SB%201174/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?",
-		"http://openstates.org/api/v1/bills/ca/20132014/SB%201221/?apikey=fbc69b7552fa42979aef5d8009291eb6&callback=?" 
-		 
-	]
+	var public_spreadsheet_url = "https://docs.google.com/spreadsheets/d/1cD2JFoFjb75BO92HKVdr5q4lF2ZcefBh5E4H4xQQIVk/pubhtml"; //GSHEET -- CHANGE ME!
+	var billDB = [], billDetails = [], billsCleaned = [];
 	
-	var billTitles = [
-		"Teacher Dismissal",
-		"Child care oversight",
-		"Limit discipline for 'willful defiance'",
-		"Abuse reporting training",
-		"Mandatory kindergarten attendance",
-		"Track absenteeism",
-		"School construction bond",
-		"Common Core funding",
-		"Expanding transitional kindergarten",
-		"Teacher dismissal",
-		"Community college baccalaureates",
-		"English learner reclassification",
-		"Repeal bilingual education ban",
-		"After-school program standards"
-	]
-	var billDetails = [], billsCleaned = [], apiKey = "fbc69b7552fa42979aef5d8009291eb6";
-	
-	//GRAB LEG INFO
+	//TABLETOP
 	$(document).ready(function(){
-		//GET DATA
-		for (i=0 ; i<trackedBillsAPI.length;i++){
-			(function(i){ //this is needed because the loop executes before jSON returns value
-				$.getJSON(trackedBillsAPI[i], function (data) {billDetails[i] = data;});
-		   	})(i);
-		}
+			Tabletop.init( { key: public_spreadsheet_url,
+		                     callback: showInfo,
+		                     wanted: ["Bills"],
+		                     debug: true } );
 	});
-	
-	//ONLOAD FUNCTION
-	window.onload = function(){
-		executeTracker();
+
+	function showInfo(data, tabletop) {		
+		$.each( tabletop.sheets("Bills").all(), function(i, bills) {
+			var insertRow = [];
+			insertRow[0] = bills.title;
+			insertRow[1] = bills.api;
+			billDB.push(insertRow);
+		});
+		
+		//GET DATA
+		for (i=0 ; i<billDB.length;i++){
+			(function(i){ //this is needed because the loop executes before jSON returns value
+				$.getJSON(billDB[i][1], function (data) {billDetails[i] = data;});
+		   	})(i);
+		}	
 	}
 	
-	
+	//EXECUTES TRACKER -- important to load a few seconds after API loads
+	setTimeout(function() { executeTracker() },2000);
 	
 	//PRIME FUNCTION
 	function executeTracker(){
@@ -157,15 +134,13 @@
 	}
 
 	//MAJOR FUNCTIONS
-	function grabVitals(){
-		
+	function grabVitals(){	
 		//latest type of action
 		for (i=0 ; i < billDetails.length ; i++){
 			var latestAction = billDetails[i].actions.length - 1; //stores latest action number from array
 			var splitDate, grabVeto;
 			var stashArray = [];
 			billsCleaned[i] = new Object();
-			
 			//grab bill general details -----------------------------------------------//
 				billsCleaned[i].bill_number = billDetails[i].bill_id;
 				billsCleaned[i].url = billDetails[i].sources[0].url;
@@ -173,38 +148,41 @@
 				billsCleaned[i].first_action = splitDate[0];
 				billsCleaned[i].chamber_origin = billDetails[i].chamber;
 				billsCleaned[i].summary = billDetails[i].summary;
-				billsCleaned[i].title = billTitles[i];
+				billsCleaned[i].title = billDB[i][0];
 				splitDate = billDetails[i].updated_at.split(" ");
-				billsCleaned[i].updated = splitDate[0];
-				
+				billsCleaned[i].updated = splitDate[0];				
 				//find intro -----------------------------------------------//
 				if 	(typeof billDetails[i].actions[0].action !== 'undefined' && billDetails[i].actions[0].action !== null){
 					billsCleaned[i].intro = "Yes"
-				}
-				
-				
+				}				
 				//find lower chamber-----------------------------------------------//
 				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
 					var expression = billDetails[i].actions[ii].action;
-					var test = /passed/i;
-					var result = expression.match(test);
-					if (result !== null && billDetails[i].actions[ii].actor === "lower"){
+					var testPass = /passed/i;
+					var testFail = /refused passage/i;
+					var resultPass = expression.match(testPass);
+					var resultFail = expression.match(testFail);
+					if (resultPass !== null && billDetails[i].actions[ii].actor === "lower"){
 						billsCleaned[i].passed_lower = true;
 					}
-				}
-				
-				
-				
+					else if (resultFail !== null && billDetails[i].actions[ii].actor === "lower"){
+						billsCleaned[i].passed_lower = "Killed";
+					}
+				}				
 				//find upper chamber-----------------------------------------------//
 				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
 					var expression = billDetails[i].actions[ii].action;
-					var test = /passed/i;
-					var result = expression.match(test);
-					if (result !== null && billDetails[i].actions[ii].actor === "upper"){
+					var testPass = /passed/i;
+					var testFail = /refused passage/i;
+					var resultPass = expression.match(testPass);
+					var resultFail = expression.match(testFail);
+					if (resultPass !== null && billDetails[i].actions[ii].actor === "upper"){
 						billsCleaned[i].passed_upper = true;
 					}
-				}
-				
+					else if (resultFail !== null && billDetails[i].actions[ii].actor === "upper"){
+						billsCleaned[i].passed_upper = "Killed";
+					}
+				}				
 				//find enroll-----------------------------------------------//
 				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
 					var expression = billDetails[i].actions[ii].action;
@@ -213,8 +191,7 @@
 					if (result !== null){
 						billsCleaned[i].enrolled = true;
 					}
-				}
-				
+				}				
 				//find gov signed------------------------------------------//
 				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
 					var expression = billDetails[i].actions[ii].action;
@@ -223,8 +200,7 @@
 					if (result !== null){
 						billsCleaned[i].signed = true;
 					}
-				}
-				
+				}				
 				//find veto -----------------------------------------------//
 				for (ii=0 ; ii < billDetails[i].actions.length ; ii++){
 					var expression = billDetails[i].actions[ii].action;
@@ -233,8 +209,7 @@
 					if (result !== null){
 						billsCleaned[i].veto = true;
 					}
-				}
-				
+				}			
 				
 			//---------------------------------------------------------------------//
 			
@@ -254,7 +229,7 @@
 		
 		//build the actual graphic -----------------------------------------------//
 			for (i=0; i < billsCleaned.length; i++){
-				$("#edtracker-container").append("<a onclick=\"_gaq.push(['_trackEvent', 'EDTRACKER', 'Click', 'Bill']);\" target=\"_blank\" class=\"tracker-link\" href=\"" + billsCleaned[i].url + "\"><div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><p>" + billsCleaned[i].title + "</p></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div></div></div></a>");
+				$("#edtracker-container").append("<a onmouseover=\"_gaq.push(['_trackEvent', 'EDTRACKER', 'Interaction', 'Hover Over']);\" onclick=\"_gaq.push(['_trackEvent', 'EDTRACKER', 'Click', 'Bill']);\" target=\"_blank\" class=\"tracker-link\" href=\"" + billsCleaned[i].url + "\"><div id=\"tracked-bill-" + i + "\" class=\"tracked-bill\"><div data=\"" + i + "\" class=\"tracker-row\" data-state=\"false\"><div data=\"" + i + "\" class=\"tracker-info\"><h2>" + billsCleaned[i].bill_number + ":</h2><p>" + billsCleaned[i].title + "</p></div><div data=\"" + i + "\" class=\"tracker-detail\"><div data=\"0\" class=\"tracker-step\"></div><div data=\"1\" class=\"tracker-step\"></div><div data=\"2\" class=\"tracker-step\"></div><div data=\"3\" class=\"tracker-step\"></div></div></div></a>");
 			}
 			
 		//populate bill states-----------------------------------------------//
@@ -276,6 +251,12 @@
 						$("#tracked-bill-" + i + " .tracker-step:eq(1)").empty();
 						$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/assembly-pass.png\">").data("caltip").changeTitle("Assembly Passed");
 					}
+					else if (billsCleaned[i].passed_lower === "Killed"){
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/assembly-fail.png\">").data("caltip").changeTitle("Assembly Killed");
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/dead.png\">").data("caltip").changeTitle("Bill is Dead");
+					}
 				}
 				else {
 					//STEP ONE INTRO
@@ -285,6 +266,12 @@
 					if (billsCleaned[i].passed_upper === true){
 						$("#tracked-bill-" + i + " .tracker-step:eq(1)").empty();
 						$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/senate-pass.png\">").data("caltip").changeTitle("Senate Passed");
+					}
+					else if (billsCleaned[i].passed_upper === "Killed"){
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(1)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/senate-fail.png\">").data("caltip").changeTitle("Senate Killed");
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/dead.png\">").data("caltip").changeTitle("Bill is Dead");
 					}
 				}
 				
@@ -299,6 +286,12 @@
 						$("#tracked-bill-" + i + " .tracker-step:eq(2)").empty();
 						$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/senate-pass.png\">").data("caltip").changeTitle("Senate Passed");
 					}
+					else if (billsCleaned[i].passed_upper === "Killed"){
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/senate-fail.png\">").data("caltip").changeTitle("Senate Killed");
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/dead.png\">").data("caltip").changeTitle("Bill is Dead");
+					}
 				}
 				else if (billsCleaned[i].passed_upper === true){
 					//STEP ONE INTRO
@@ -308,6 +301,12 @@
 					if (billsCleaned[i].passed_lower === true){
 						$("#tracked-bill-" + i + " .tracker-step:eq(2)").empty();
 						$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/assembly-pass.png\">").data("caltip").changeTitle("Assembly Passed");
+					}
+					else if (billsCleaned[i].passed_lower === "Killed"){
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(2)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/assembly-fail.png\">").data("caltip").changeTitle("Assembly Killed");
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").empty();
+						$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/dead.png\">").data("caltip").changeTitle("Bill is Dead");
 					}
 				}
 				
@@ -333,20 +332,11 @@
 						$("#tracked-bill-" + i + " .tracker-step:eq(0)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/dead.png\">").data("caltip").changeTitle("Bill is Dead");
 						$("#tracked-bill-" + i + " .tracker-step:eq(3)").append("<img src=\"http://edsource.org/wp-content/iframe/edtracker/assets/veto.png\">").data("caltip").changeTitle("Governor Vetoed");
 					}
-				}
-				
+				}			
 			}
 	
 	}
-	
-	function populateLatest(){
-		
-	}
-	
-	function populateTracker(){
-		
-	}
-	
+
 </script>
 
 <div id="edtracker-header">
