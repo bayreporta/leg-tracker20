@@ -7,11 +7,14 @@ var legTrack = {
 		bills:[],
 		totalBills:null,
 		pubkey:null,
-		full: []
+		full: [],
+		upper:40, //make dynamic
+		lower:80 //make dynamic
 	},
 	data:[],
 	output:[],
 	parseDetails: function(d, cal, out){
+		/* grab the meat and potatoes for the app front-end */
 		if (legTrack.data[cal.totalBills-1] == undefined){
 			this.callAPI(cal);
 		}
@@ -22,39 +25,37 @@ var legTrack = {
 					/* META DATA
 					------------------------------------------------*/
 					out[i].meta = new Object();
-					out[i].meta.bill_id = d[i].bill_id;
-					out[i].meta.title = d[i].title;
-					out[i].meta.firstStr = this.convertDate(d[i].action_dates.first);
-					out[i].meta.lastStr = this.convertDate(d[i].action_dates.last);
-					out[i].meta.firstNum = Date.parse(d[i].action_dates.first);
-					out[i].meta.lastNum = Date.parse(d[i].action_dates.last);
-					out[i].meta.daysSinceFirst = Math.round((out[i].meta.lastNum - out[i].meta.firstNum) / 86400000);
-					out[i].meta.chamber = d[i].chamber;
-					out[i].meta.subjects = legTrack.data[i][1];
+						out[i].meta.bill_id = d[i].bill_id;
+						out[i].meta.title = d[i].title;
+						out[i].meta.source = d[i].sources[0].url;
+						out[i].meta.firstStr = this.convertDate(d[i].action_dates.first);
+						out[i].meta.lastStr = this.convertDate(d[i].action_dates.last);
+						out[i].meta.firstNum = Date.parse(d[i].action_dates.first);
+						out[i].meta.lastNum = Date.parse(d[i].action_dates.last);
+						out[i].meta.daysSinceFirst = Math.round((out[i].meta.lastNum - out[i].meta.firstNum) / 86400000);
+						out[i].meta.chamber = d[i].chamber;
+						out[i].meta.subjects = legTrack.data[i][1];
 
 
-					/* META DATA
+					/* STATUS DATA
 					------------------------------------------------*/
+					out[i].status = new Object();
+						out[i].status.upper = new Object();
+							out[i].status.upper.passed_upper = d[i].action_dates.passed_upper;
+							out[i].status.upper.votes_yes = this.grabVotes('upper', this.data[i].votes);
+							out[i].status.upper.votePercent = Math.round((out[i].status.upper.votes_yes / this.calibrate.upper) * 100);
+						out[i].status.lower = new Object();
+							out[i].status.lower.passed_lower = d[i].action_dates.passed_lower;
+							out[i].status.lower.votes_yes = this.grabVotes('lower', this.data[i].votes);
+							out[i].status.lower.votePercent = Math.round((out[i].status.lower.votes_yes / this.calibrate.lower) * 100);
+						out[i].status.signed = d[i].action_dates.signed;
+						out[i].status.actions = this.grabActions(this.data[i].actions);
 
-					/*
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
-					out[i].XXX = d[i].XXX;
+
+
+					
+					
+					/*out[i].status.XXXX = d[i].XXX;
 					out[i].XXX = d[i].XXX;
 					out[i].XXX = d[i].XXX;
 					out[i].XXX = d[i].XXX;
@@ -67,10 +68,32 @@ var legTrack = {
 		
 	},
 	convertDate: function(date){
+		/* take the date string and parse out the month, day and year */
 		var thisDate = date.split(' ');
 		thisDate = thisDate[0].split('-');
 		return thisDate[1] + '/' + thisDate[2] + '/' + thisDate[0];
 
+	},
+	grabActions: function(act){
+		/* this grabs the actions that apply to each bill and organizes them */
+		var actions = new Array();
+
+		for (var i=0 ; i < act.length ; i++){
+			actions[i] = new Object();
+			actions[i]['actions'] = act[i].type;
+			actions[i]['actor'] = act[i].actor;
+		}
+		console.log(actions)
+		return actions;
+	},
+	grabVotes: function(chamber, votes){
+		/* determine how many yes votes in each chamber if applicable */
+		for (var i = 0 ; i < votes.length ; i++){
+			if (votes[i]['+type_'] === 'passage' && votes[i].chamber === chamber){
+				return votes[i]['yes_count'];
+				break;
+			}
+		}
 	},
 	calibrateApp: function(cal){
 		/* grab meta data for accessing OpenStates API */
@@ -93,6 +116,7 @@ var legTrack = {
 		setTimeout(function(){legTrack.callAPI(cal); console.log('trigger')}, 1000);
 	},
 	grabBills: function(cal){
+		/* figure out the bills to look up through API */
 		$.getJSON('data/bills.json', function (d) {
 			for (var i=1 ; i < d.length ; i++){
 				cal.bills[i-1] = new Array();
@@ -106,6 +130,7 @@ var legTrack = {
 		legTrack.calibrateApp(cal);
 	},
 	callAPI: function(cal){
+		/* grab API data */
 		if (cal.full[cal.totalBills-1] == undefined){
 			this.calibrateApp(cal);
 		}
