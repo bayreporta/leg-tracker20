@@ -1,0 +1,1266 @@
+? ({
+	"actions": [{
+		"related_entities": [],
+		"actor": "lower",
+		"date": "2013-01-31 00:00:00",
+		"+actor_info": {
+			"details": "Assembly (Desk)"
+		},
+		"action": "Read first time. To print.",
+		"type": ["bill:reading:1"]
+	}, {
+		"related_entities": [],
+		"actor": "lower",
+		"date": "2013-02-01 00:00:00",
+		"+actor_info": {
+			"details": "Assembly (Desk)"
+		},
+		"action": "From printer. May be heard in committee March 3.",
+		"type": ["other"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Natural Resources",
+			"id": "CAC000333"
+		}],
+		"actor": "lower",
+		"date": "2013-02-07 00:00:00",
+		"+actor_info": {
+			"details": "Assembly (Committee CX16)",
+			"committee_code": "CX16"
+		},
+		"action": "Referred to Standing Committee on Natural Resources.",
+		"type": ["committee:referred"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Appropriations",
+			"id": "CAC000315"
+		}, {
+			"type": "committee",
+			"name": "Standing Committee on Appropriations",
+			"id": "CAC000315"
+		}],
+		"+no_votes": ["0"],
+		"actor": "lower",
+		"+yes_votes": ["9"],
+		"date": "2013-04-02 00:00:00",
+		"+actor_info": {
+			"details": "Assembly (Committee CX25)",
+			"committee_code": "CX25"
+		},
+		"action": "From committee: Do pass and re-refer to Standing Committee on Appropriations. with recommendation: to consent calendar. (Ayes 9. Noes 0.) (April 1). Re-referred to Standing Committee on Appropriations.",
+		"type": ["committee:passed", "committee:referred", "committee:passed:favorable"],
+		"related_votes": ["CAV00105217"]
+	}, {
+		"related_entities": [],
+		"+no_votes": ["0"],
+		"actor": "lower",
+		"+yes_votes": ["17"],
+		"date": "2013-04-17 00:00:00",
+		"+actor_info": {
+			"details": "Assembly (Floor Second Reading)"
+		},
+		"action": "From committee: Do pass. (Ayes 17. Noes 0.) (April 17).",
+		"type": ["committee:passed", "committee:passed:favorable"],
+		"related_votes": ["CAV00101522"]
+	}, {
+		"related_entities": [],
+		"actor": "lower",
+		"date": "2013-04-18 00:00:00",
+		"+actor_info": {
+			"details": "Assembly (Floor Third Reading)"
+		},
+		"action": "Read second time. Ordered to third reading.",
+		"type": ["bill:reading:1"]
+	}, {
+		"related_entities": [],
+		"+no_votes": ["0"],
+		"actor": "lower",
+		"+yes_votes": ["73"],
+		"date": "2013-05-02 00:00:00",
+		"+actor_info": {
+			"details": "Assembly (E&E Engrossing)"
+		},
+		"action": "Read third time. Passed. Ordered to the Senate. (Ayes 73. Noes 0. Page 1216.)",
+		"type": ["bill:passed", "bill:reading:1", "bill:reading:3"],
+		"related_votes": ["CAV00064389"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Rules",
+			"id": "CAC000289"
+		}],
+		"actor": "upper",
+		"date": "2013-05-02 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Rules)"
+		},
+		"action": "In Senate. Read first time. To Standing Committee on Rules. for assignment.",
+		"type": ["bill:reading:1"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Environmental Quality",
+			"id": "CAC000277"
+		}],
+		"actor": "upper",
+		"date": "2013-05-15 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS64)",
+			"committee_code": "CS64"
+		},
+		"action": "Referred to Standing Committee on Environmental Quality.",
+		"type": ["committee:referred"]
+	}, {
+		"related_entities": [],
+		"actor": "upper",
+		"date": "2013-05-21 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS64)"
+		},
+		"action": "In committee: Set, first hearing. Hearing canceled at the request of author.",
+		"type": ["other"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Environmental Quality",
+			"id": "CAC000277"
+		}],
+		"actor": "upper",
+		"date": "2014-04-03 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS64)",
+			"committee_code": "CS64"
+		},
+		"action": "From committee chair, with author's amendments: Amend, and re-refer to committee. Read second time, amended, and re-referred to Standing Committee on Environmental Quality.",
+		"type": ["committee:passed", "bill:reading:1", "committee:referred"]
+	}, {
+		"related_entities": [],
+		"actor": "upper",
+		"date": "2014-04-07 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Desk CS58)"
+		},
+		"action": "Withdrawn from committee.",
+		"type": ["committee:passed"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Rules",
+			"id": "CAC000289"
+		}],
+		"actor": "upper",
+		"date": "2014-04-07 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS58)",
+			"committee_code": "CS58"
+		},
+		"action": "Re-referred to Standing Committee on Rules.",
+		"type": ["committee:referred"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Education",
+			"id": "CAC000274"
+		}],
+		"actor": "upper",
+		"date": "2014-04-22 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS44)",
+			"committee_code": "CS44"
+		},
+		"action": "Re-referred to Standing Committee on Education.",
+		"type": ["committee:referred"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Appropriations",
+			"id": "CAC000270"
+		}],
+		"+no_votes": ["0"],
+		"actor": "upper",
+		"+yes_votes": ["9"],
+		"date": "2014-05-08 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Floor Second Reading)"
+		},
+		"action": "From committee: Do pass as amended and re-refer to Standing Committee on Appropriations. (Ayes 9. Noes 0.) (April 30).",
+		"type": ["committee:passed", "committee:passed:favorable"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Appropriations",
+			"id": "CAC000270"
+		}],
+		"actor": "upper",
+		"date": "2014-05-12 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS61)",
+			"committee_code": "CS61"
+		},
+		"action": "Read second time and amended. Re-referred to Standing Committee on Appropriations.",
+		"type": ["bill:reading:1", "committee:referred", "bill:reading:2"]
+	}, {
+		"related_entities": [],
+		"actor": "upper",
+		"date": "2014-05-19 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS61)"
+		},
+		"action": "In committee: Placed on APPR. suspense file.",
+		"type": ["other"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Appropriations",
+			"id": "CAC000270"
+		}],
+		"actor": "upper",
+		"date": "2014-05-20 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS61)",
+			"committee_code": "CS61"
+		},
+		"action": "From committee chair, with author's amendments: Amend, and re-refer to committee. Read second time, amended, and re-referred to Standing Committee on Appropriations.",
+		"type": ["committee:passed", "bill:reading:1", "committee:referred"],
+		"related_votes": ["CAV00101524"]
+	}, {
+		"related_entities": [],
+		"+no_votes": ["0"],
+		"actor": "upper",
+		"+yes_votes": ["7"],
+		"date": "2014-05-23 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Floor Second Reading)"
+		},
+		"action": "From committee: Do pass. (Ayes 7. Noes 0.) (May 23).",
+		"type": ["committee:passed", "committee:passed:favorable"],
+		"related_votes": ["CAV00105221"]
+	}, {
+		"related_entities": [],
+		"actor": "upper",
+		"date": "2014-05-27 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Floor Third Reading)"
+		},
+		"action": "Read second time. Ordered to third reading.",
+		"type": ["bill:reading:1"]
+	}, {
+		"related_entities": [],
+		"+no_votes": ["0"],
+		"actor": "upper",
+		"+yes_votes": ["33"],
+		"date": "2014-06-09 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Desk)"
+		},
+		"action": "Read third time. Passed. Ordered to the Assembly. (Ayes 33. Noes 0. Page 3780.).",
+		"type": ["bill:passed", "bill:reading:1", "bill:reading:3"],
+		"related_votes": ["CAV00105222"]
+	}, {
+		"related_entities": [],
+		"actor": "lower",
+		"date": "2014-06-09 00:00:00",
+		"+actor_info": {
+			"details": "Assembly (Desk)"
+		},
+		"action": "In Assembly. Concurrence in Senate amendments pending. May be considered on or after June 11 pursuant to Assembly Rule 77.",
+		"type": ["other"]
+	}, {
+		"related_entities": [],
+		"+no_votes": ["0"],
+		"actor": "lower",
+		"+yes_votes": ["77"],
+		"date": "2014-06-12 00:00:00",
+		"+actor_info": {
+			"details": "Assembly (E&E Enrollment)"
+		},
+		"action": "Senate amendments concurred in. To Engrossing and Enrolling. (Ayes 77. Noes 0. Page 5491.).",
+		"type": ["amendment:passed"],
+		"related_votes": ["CAV00106169"]
+	}, {
+		"related_entities": [],
+		"actor": "other",
+		"date": "2014-06-20 00:00:00",
+		"+actor_info": {
+			"details": "Governor"
+		},
+		"action": "Enrolled and presented to the Governor at 11:45 a.m.",
+		"type": ["other"]
+	}, {
+		"related_entities": [],
+		"actor": "other",
+		"date": "2014-06-25 00:00:00",
+		"+actor_info": {
+			"details": "Governor"
+		},
+		"action": "Approved by the Governor.",
+		"type": ["governor:signed"]
+	}, {
+		"related_entities": [],
+		"actor": "other",
+		"date": "2014-06-25 00:00:00",
+		"+actor_info": {
+			"details": "Secretary of State"
+		},
+		"action": "Chaptered by Secretary of State - Chapter 55, Statutes of 2014.",
+		"type": ["other"]
+	}],
+	"sources": [{
+		"url": "http://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201320140AB215"
+	}],
+	"session": "20132014",
+	"id": "CAB00010396",
+	"votes": [{
+		"+threshold": "1/2",
+		"sources": [],
+		"session": "20132014",
+		"committee": "Education",
+		"id": "CAV00105219",
+		"other_count": 0,
+		"committee_id": "CAC000274",
+		"+type_": "other",
+		"state": "ca",
+		"passed": true,
+		"type": "other",
+		"no_count": 0,
+		"yes_votes": [{
+			"leg_id": "CAL000022",
+			"name": "Huff"
+		}, {
+			"leg_id": "CAL000062",
+			"name": "Galgiani"
+		}, {
+			"leg_id": "CAL000009",
+			"name": "Hancock"
+		}, {
+			"leg_id": "CAL000016",
+			"name": "Liu"
+		}, {
+			"leg_id": "CAL000044",
+			"name": "Block"
+		}, {
+			"leg_id": "CAL000107",
+			"name": "Monning"
+		}, {
+			"leg_id": "CAL000028",
+			"name": "Wyland"
+		}, {
+			"leg_id": "CAL000037",
+			"name": "Correa"
+		}, {
+			"leg_id": "CAL000141",
+			"name": "Hueso"
+		}],
+		"date": "2014-04-30 07:00:00",
+		"no_votes": [],
+		"other_votes": [],
+		"yes_count": 9,
+		"motion": "Do pass as amended, and re-refer to the Committee on Appropriations.",
+		"chamber": "upper",
+		"vote_id": "CAV00105219",
+		"bill_id": "CAB00010396"
+	}, {
+		"+threshold": "1/2",
+		"sources": [],
+		"session": "20132014",
+		"committee": "Appropriations",
+		"id": "CAV00105221",
+		"other_count": 0,
+		"committee_id": "CAC000270",
+		"+type_": "other",
+		"state": "ca",
+		"passed": true,
+		"type": "other",
+		"no_count": 0,
+		"yes_votes": [{
+			"leg_id": "CAL000057",
+			"name": "De León"
+		}, {
+			"leg_id": "CAL000155",
+			"name": "Lara"
+		}, {
+			"leg_id": "CAL000006",
+			"name": "Steinberg"
+		}, {
+			"leg_id": "CAL000083",
+			"name": "Hill"
+		}, {
+			"leg_id": "CAL000102",
+			"name": "Gaines"
+		}, {
+			"leg_id": "CAL000034",
+			"name": "Padilla"
+		}, {
+			"leg_id": "CAL000025",
+			"name": "Walters"
+		}],
+		"date": "2014-05-23 07:00:00",
+		"no_votes": [],
+		"other_votes": [],
+		"yes_count": 7,
+		"motion": "Do pass.",
+		"chamber": "upper",
+		"vote_id": "CAV00105221",
+		"bill_id": "CAB00010396"
+	}, {
+		"+threshold": "1/2",
+		"sources": [],
+		"session": "20132014",
+		"committee": "Appropriations",
+		"id": "CAV00101524",
+		"other_count": 0,
+		"committee_id": "CAC000270",
+		"+type_": "other",
+		"state": "ca",
+		"passed": true,
+		"type": "other",
+		"no_count": 0,
+		"yes_votes": [{
+			"leg_id": "CAL000057",
+			"name": "De León"
+		}, {
+			"leg_id": "CAL000155",
+			"name": "Lara"
+		}, {
+			"leg_id": "CAL000006",
+			"name": "Steinberg"
+		}, {
+			"leg_id": "CAL000083",
+			"name": "Hill"
+		}, {
+			"leg_id": "CAL000102",
+			"name": "Gaines"
+		}, {
+			"leg_id": "CAL000034",
+			"name": "Padilla"
+		}, {
+			"leg_id": "CAL000025",
+			"name": "Walters"
+		}],
+		"date": "2014-05-19 07:00:00",
+		"no_votes": [],
+		"other_votes": [],
+		"yes_count": 7,
+		"motion": "Placed on Appropriations Suspense file.",
+		"chamber": "upper",
+		"vote_id": "CAV00101524",
+		"bill_id": "CAB00010396"
+	}, {
+		"+threshold": "1/2",
+		"sources": [],
+		"session": "20132014",
+		"committee": "Natural Resources",
+		"id": "CAV00105217",
+		"other_count": 0,
+		"committee_id": "CAC000333",
+		"+type_": "other",
+		"state": "ca",
+		"passed": true,
+		"type": "other",
+		"no_count": 0,
+		"yes_votes": [{
+			"leg_id": "CAL000406",
+			"name": "Stone"
+		}, {
+			"leg_id": "CAL000397",
+			"name": "Patterson"
+		}, {
+			"leg_id": "CAL000140",
+			"name": "Grove"
+		}, {
+			"leg_id": "CAL000392",
+			"name": "Muratsuchi"
+		}, {
+			"leg_id": "CAL000366",
+			"name": "Garcia"
+		}, {
+			"leg_id": "CAL000058",
+			"name": "Skinner"
+		}, {
+			"leg_id": "CAL000341",
+			"name": "Bigelow"
+		}, {
+			"leg_id": "CAL000101",
+			"name": "Chesbro"
+		}, {
+			"leg_id": "CAL000157",
+			"name": "Williams"
+		}],
+		"date": "2013-04-01 07:00:00",
+		"no_votes": [],
+		"other_votes": [],
+		"yes_count": 9,
+		"motion": "Do pass and re-refer to Committee on Appropriations with recommendation: To Consent Calendar.",
+		"chamber": "lower",
+		"vote_id": "CAV00105217",
+		"bill_id": "CAB00010396"
+	}, {
+		"+threshold": "1/2",
+		"sources": [],
+		"session": "20132014",
+		"id": "CAV00106169",
+		"other_count": 2,
+		"+type_": "other",
+		"state": "ca",
+		"passed": true,
+		"type": "other",
+		"no_count": 0,
+		"yes_votes": [{
+			"leg_id": "CAL000425",
+			"name": "Gonzalez"
+		}, {
+			"leg_id": "CAL000111",
+			"name": "Bradford"
+		}, {
+			"leg_id": "CAL000385",
+			"name": "Maienschein"
+		}, {
+			"leg_id": "CAL000092",
+			"name": "Hagman"
+		}, {
+			"leg_id": "CAL000381",
+			"name": "Levine"
+		}, {
+			"leg_id": "CAL000160",
+			"name": "Gorell"
+		}, {
+			"leg_id": "CAL000363",
+			"name": "Fox"
+		}, {
+			"leg_id": "CAL000406",
+			"name": "Stone"
+		}, {
+			"leg_id": "CAL000430",
+			"name": "Ridley-Thomas"
+		}, {
+			"leg_id": "CAL000152",
+			"name": "Roger Hernández"
+		}, {
+			"leg_id": "CAL000411",
+			"name": "Weber"
+		}, {
+			"leg_id": "CAL000356",
+			"name": "Cooley"
+		}, {
+			"leg_id": "CAL000151",
+			"name": "Bonilla"
+		}, {
+			"leg_id": "CAL000042",
+			"name": "Logue"
+		}, {
+			"leg_id": "CAL000081",
+			"name": "Nestande"
+		}, {
+			"leg_id": "CAL000165",
+			"name": "Dickinson"
+		}, {
+			"leg_id": "CAL000410",
+			"name": "Waldron"
+		}, {
+			"leg_id": "CAL000159",
+			"name": "Alejo"
+		}, {
+			"leg_id": "CAL000149",
+			"name": "Pan"
+		}, {
+			"leg_id": "CAL000391",
+			"name": "Mullin"
+		}, {
+			"leg_id": "CAL000377",
+			"name": "Holden"
+		}, {
+			"leg_id": "CAL000348",
+			"name": "Brown"
+		}, {
+			"leg_id": "CAL000353",
+			"name": "Chávez"
+		}, {
+			"leg_id": "CAL000145",
+			"name": "Jones"
+		}, {
+			"leg_id": "CAL000397",
+			"name": "Patterson"
+		}, {
+			"leg_id": "CAL000157",
+			"name": "Williams"
+		}, {
+			"leg_id": "CAL000368",
+			"name": "Gomez"
+		}, {
+			"leg_id": "CAL000364",
+			"name": "Frazier"
+		}, {
+			"leg_id": "CAL000387",
+			"name": "Medina"
+		}, {
+			"leg_id": "CAL000392",
+			"name": "Muratsuchi"
+		}, {
+			"leg_id": "CAL000388",
+			"name": "Melendez"
+		}, {
+			"leg_id": "CAL000153",
+			"name": "Campos"
+		}, {
+			"leg_id": "CAL000138",
+			"name": "Olsen"
+		}, {
+			"leg_id": "CAL000431",
+			"name": "Dababneh"
+		}, {
+			"leg_id": "CAL000148",
+			"name": "Mansoor"
+		}, {
+			"leg_id": "CAL000080",
+			"name": "Lowenthal"
+		}, {
+			"leg_id": "CAL000101",
+			"name": "Chesbro"
+		}, {
+			"leg_id": "CAL000342",
+			"name": "Bloom"
+		}, {
+			"leg_id": "CAL000058",
+			"name": "Skinner"
+		}, {
+			"leg_id": "CAL000144",
+			"name": "Atkins"
+		}, {
+			"leg_id": "CAL000371",
+			"name": "Gray"
+		}, {
+			"leg_id": "CAL000393",
+			"name": "Nazarian"
+		}, {
+			"leg_id": "CAL000357",
+			"name": "Dahle"
+		}, {
+			"leg_id": "CAL000346",
+			"name": "Bonta"
+		}, {
+			"leg_id": "CAL000382",
+			"name": "Linder"
+		}, {
+			"leg_id": "CAL000140",
+			"name": "Grove"
+		}, {
+			"leg_id": "CAL000089",
+			"name": "John A. Pérez"
+		}, {
+			"leg_id": "CAL000167",
+			"name": "Wieckowski"
+		}, {
+			"leg_id": "CAL000172",
+			"name": "Beth Gaines"
+		}, {
+			"leg_id": "CAL000403",
+			"name": "Rendon"
+		}, {
+			"leg_id": "CAL000123",
+			"name": "Gatto"
+		}, {
+			"leg_id": "CAL000366",
+			"name": "Garcia"
+		}, {
+			"leg_id": "CAL000350",
+			"name": "Ian Calderon"
+		}, {
+			"leg_id": "CAL000099",
+			"name": "Yamada"
+		}, {
+			"leg_id": "CAL000137",
+			"name": "Gordon"
+		}, {
+			"leg_id": "CAL000413",
+			"name": "Wilk"
+		}, {
+			"leg_id": "CAL000146",
+			"name": "Achadjian"
+		}, {
+			"leg_id": "CAL000402",
+			"name": "Quirk-Silva"
+		}, {
+			"leg_id": "CAL000407",
+			"name": "Ting"
+		}, {
+			"leg_id": "CAL000139",
+			"name": "Perea"
+		}, {
+			"leg_id": "CAL000361",
+			"name": "Eggman"
+		}, {
+			"leg_id": "CAL000147",
+			"name": "Donnelly"
+		}, {
+			"leg_id": "CAL000108",
+			"name": "Conway"
+		}, {
+			"leg_id": "CAL000084",
+			"name": "Fong"
+		}, {
+			"leg_id": "CAL000358",
+			"name": "Daly"
+		}, {
+			"leg_id": "CAL000059",
+			"name": "Buchanan"
+		}, {
+			"leg_id": "CAL000401",
+			"name": "Quirk"
+		}, {
+			"leg_id": "CAL000150",
+			"name": "Wagner"
+		}, {
+			"leg_id": "CAL000404",
+			"name": "Salas"
+		}, {
+			"leg_id": "CAL000428",
+			"name": "Rodriguez"
+		}, {
+			"leg_id": "CAL000344",
+			"name": "Bocanegra"
+		}, {
+			"leg_id": "CAL000380",
+			"name": "Jones-Sawyer"
+		}, {
+			"leg_id": "CAL000352",
+			"name": "Chau"
+		}, {
+			"leg_id": "CAL000341",
+			"name": "Bigelow"
+		}, {
+			"leg_id": "CAL000338",
+			"name": "Allen"
+		}, {
+			"leg_id": "CAL000104",
+			"name": "Ammiano"
+		}, {
+			"leg_id": "CAL000098",
+			"name": "V. Manuel Pérez"
+		}],
+		"date": "2014-06-12 16:31:00",
+		"no_votes": [],
+		"vote_id": "CAV00106169",
+		"other_votes": [{
+			"leg_id": "CAL000045",
+			"name": "Harkey"
+		}, {
+			"leg_id": "CAL000112",
+			"name": "Hall"
+		}],
+		"yes_count": 77,
+		"motion": "AB 215 BUCHANAN Concurrence in Senate Amendments",
+		"chamber": "lower",
+		"bill_id": "CAB00010396"
+	}, {
+		"+threshold": "1/2",
+		"sources": [],
+		"session": "20132014",
+		"committee": "Appropriations",
+		"id": "CAV00101522",
+		"other_count": 0,
+		"committee_id": "CAC000315",
+		"+type_": "other",
+		"state": "ca",
+		"passed": true,
+		"type": "other",
+		"no_count": 0,
+		"yes_votes": [{
+			"leg_id": "CAL000111",
+			"name": "Bradford"
+		}, {
+			"leg_id": "CAL000377",
+			"name": "Holden"
+		}, {
+			"leg_id": "CAL000361",
+			"name": "Eggman"
+		}, {
+			"leg_id": "CAL000147",
+			"name": "Donnelly"
+		}, {
+			"leg_id": "CAL000368",
+			"name": "Gomez"
+		}, {
+			"leg_id": "CAL000401",
+			"name": "Quirk"
+		}, {
+			"leg_id": "CAL000150",
+			"name": "Wagner"
+		}, {
+			"leg_id": "CAL000123",
+			"name": "Gatto"
+		}, {
+			"leg_id": "CAL000045",
+			"name": "Harkey"
+		}, {
+			"leg_id": "CAL000350",
+			"name": "Ian Calderon"
+		}, {
+			"leg_id": "CAL000153",
+			"name": "Campos"
+		}, {
+			"leg_id": "CAL000344",
+			"name": "Bocanegra"
+		}, {
+			"leg_id": "CAL000341",
+			"name": "Bigelow"
+		}, {
+			"leg_id": "CAL000104",
+			"name": "Ammiano"
+		}, {
+			"leg_id": "CAL000382",
+			"name": "Linder"
+		}, {
+			"leg_id": "CAL000112",
+			"name": "Hall"
+		}, {
+			"leg_id": "CAL000149",
+			"name": "Pan"
+		}],
+		"date": "2013-04-17 07:00:00",
+		"no_votes": [],
+		"other_votes": [],
+		"yes_count": 17,
+		"motion": "Do pass.",
+		"chamber": "lower",
+		"vote_id": "CAV00101522",
+		"bill_id": "CAB00010396"
+	}, {
+		"+threshold": "1/2",
+		"sources": [],
+		"session": "20132014",
+		"id": "CAV00064389",
+		"other_count": 6,
+		"+type_": "passage",
+		"state": "ca",
+		"passed": true,
+		"type": "other",
+		"no_count": 0,
+		"yes_votes": [{
+			"leg_id": "CAL000385",
+			"name": "Maienschein"
+		}, {
+			"leg_id": "CAL000092",
+			"name": "Hagman"
+		}, {
+			"leg_id": "CAL000381",
+			"name": "Levine"
+		}, {
+			"leg_id": "CAL000160",
+			"name": "Gorell"
+		}, {
+			"leg_id": "CAL000406",
+			"name": "Stone"
+		}, {
+			"leg_id": "CAL000152",
+			"name": "Roger Hernández"
+		}, {
+			"leg_id": "CAL000411",
+			"name": "Weber"
+		}, {
+			"leg_id": "CAL000356",
+			"name": "Cooley"
+		}, {
+			"leg_id": "CAL000151",
+			"name": "Bonilla"
+		}, {
+			"leg_id": "CAL000042",
+			"name": "Logue"
+		}, {
+			"leg_id": "CAL000081",
+			"name": "Nestande"
+		}, {
+			"leg_id": "CAL000165",
+			"name": "Dickinson"
+		}, {
+			"leg_id": "CAL000410",
+			"name": "Waldron"
+		}, {
+			"leg_id": "CAL000159",
+			"name": "Alejo"
+		}, {
+			"leg_id": "CAL000149",
+			"name": "Pan"
+		}, {
+			"leg_id": "CAL000391",
+			"name": "Mullin"
+		}, {
+			"leg_id": "CAL000377",
+			"name": "Holden"
+		}, {
+			"leg_id": "CAL000348",
+			"name": "Brown"
+		}, {
+			"leg_id": "CAL000353",
+			"name": "Chávez"
+		}, {
+			"leg_id": "CAL000397",
+			"name": "Patterson"
+		}, {
+			"leg_id": "CAL000368",
+			"name": "Gomez"
+		}, {
+			"leg_id": "CAL000364",
+			"name": "Frazier"
+		}, {
+			"leg_id": "CAL000387",
+			"name": "Medina"
+		}, {
+			"leg_id": "CAL000392",
+			"name": "Muratsuchi"
+		}, {
+			"leg_id": "CAL000388",
+			"name": "Melendez"
+		}, {
+			"leg_id": "CAL000153",
+			"name": "Campos"
+		}, {
+			"leg_id": "CAL000138",
+			"name": "Olsen"
+		}, {
+			"leg_id": "CAL000058",
+			"name": "Skinner"
+		}, {
+			"leg_id": "CAL000148",
+			"name": "Mansoor"
+		}, {
+			"leg_id": "CAL000088",
+			"name": "Blumenfield"
+		}, {
+			"leg_id": "CAL000080",
+			"name": "Lowenthal"
+		}, {
+			"leg_id": "CAL000101",
+			"name": "Chesbro"
+		}, {
+			"leg_id": "CAL000342",
+			"name": "Bloom"
+		}, {
+			"leg_id": "CAL000111",
+			"name": "Bradford"
+		}, {
+			"leg_id": "CAL000371",
+			"name": "Gray"
+		}, {
+			"leg_id": "CAL000393",
+			"name": "Nazarian"
+		}, {
+			"leg_id": "CAL000357",
+			"name": "Dahle"
+		}, {
+			"leg_id": "CAL000346",
+			"name": "Bonta"
+		}, {
+			"leg_id": "CAL000382",
+			"name": "Linder"
+		}, {
+			"leg_id": "CAL000140",
+			"name": "Grove"
+		}, {
+			"leg_id": "CAL000089",
+			"name": "John A. Pérez"
+		}, {
+			"leg_id": "CAL000167",
+			"name": "Wieckowski"
+		}, {
+			"leg_id": "CAL000172",
+			"name": "Beth Gaines"
+		}, {
+			"leg_id": "CAL000403",
+			"name": "Rendon"
+		}, {
+			"leg_id": "CAL000099",
+			"name": "Yamada"
+		}, {
+			"leg_id": "CAL000123",
+			"name": "Gatto"
+		}, {
+			"leg_id": "CAL000366",
+			"name": "Garcia"
+		}, {
+			"leg_id": "CAL000350",
+			"name": "Ian Calderon"
+		}, {
+			"leg_id": "CAL000113",
+			"name": "Torres"
+		}, {
+			"leg_id": "CAL000137",
+			"name": "Gordon"
+		}, {
+			"leg_id": "CAL000413",
+			"name": "Wilk"
+		}, {
+			"leg_id": "CAL000146",
+			"name": "Achadjian"
+		}, {
+			"leg_id": "CAL000161",
+			"name": "Mitchell"
+		}, {
+			"leg_id": "CAL000402",
+			"name": "Quirk-Silva"
+		}, {
+			"leg_id": "CAL000407",
+			"name": "Ting"
+		}, {
+			"leg_id": "CAL000139",
+			"name": "Perea"
+		}, {
+			"leg_id": "CAL000361",
+			"name": "Eggman"
+		}, {
+			"leg_id": "CAL000147",
+			"name": "Donnelly"
+		}, {
+			"leg_id": null,
+			"name": "Morrell"
+		}, {
+			"leg_id": "CAL000108",
+			"name": "Conway"
+		}, {
+			"leg_id": "CAL000084",
+			"name": "Fong"
+		}, {
+			"leg_id": "CAL000358",
+			"name": "Daly"
+		}, {
+			"leg_id": "CAL000059",
+			"name": "Buchanan"
+		}, {
+			"leg_id": "CAL000401",
+			"name": "Quirk"
+		}, {
+			"leg_id": "CAL000150",
+			"name": "Wagner"
+		}, {
+			"leg_id": "CAL000404",
+			"name": "Salas"
+		}, {
+			"leg_id": "CAL000344",
+			"name": "Bocanegra"
+		}, {
+			"leg_id": "CAL000380",
+			"name": "Jones-Sawyer"
+		}, {
+			"leg_id": "CAL000352",
+			"name": "Chau"
+		}, {
+			"leg_id": "CAL000341",
+			"name": "Bigelow"
+		}, {
+			"leg_id": "CAL000338",
+			"name": "Allen"
+		}, {
+			"leg_id": "CAL000104",
+			"name": "Ammiano"
+		}, {
+			"leg_id": "CAL000098",
+			"name": "V. Manuel Pérez"
+		}],
+		"date": "2013-05-02 16:47:50",
+		"no_votes": [],
+		"vote_id": "CAV00064389",
+		"other_votes": [{
+			"leg_id": "CAL000144",
+			"name": "Atkins"
+		}, {
+			"leg_id": "CAL000145",
+			"name": "Jones"
+		}, {
+			"leg_id": "CAL000363",
+			"name": "Fox"
+		}, {
+			"leg_id": "CAL000045",
+			"name": "Harkey"
+		}, {
+			"leg_id": "CAL000112",
+			"name": "Hall"
+		}, {
+			"leg_id": "CAL000157",
+			"name": "Williams"
+		}],
+		"yes_count": 73,
+		"motion": "AB 215 CHESBRO Assembly Third Reading",
+		"chamber": "lower",
+		"bill_id": "CAB00010396"
+	}, {
+		"+threshold": "1/2",
+		"sources": [],
+		"session": "20132014",
+		"id": "CAV00105222",
+		"other_count": 7,
+		"+type_": "passage",
+		"state": "ca",
+		"passed": true,
+		"type": "other",
+		"no_count": 0,
+		"yes_votes": [{
+			"leg_id": "CAL000010",
+			"name": "Corbett"
+		}, {
+			"leg_id": "CAL000057",
+			"name": "De León"
+		}, {
+			"leg_id": "CAL000016",
+			"name": "Liu"
+		}, {
+			"leg_id": "CAL000116",
+			"name": "Anderson"
+		}, {
+			"leg_id": "CAL000141",
+			"name": "Hueso"
+		}, {
+			"leg_id": "CAL000316",
+			"name": "Jackson"
+		}, {
+			"leg_id": "CAL000018",
+			"name": "Pavley"
+		}, {
+			"leg_id": "CAL000028",
+			"name": "Wyland"
+		}, {
+			"leg_id": "CAL000007",
+			"name": "DeSaulnier"
+		}, {
+			"leg_id": "CAL000049",
+			"name": "Hernandez"
+		}, {
+			"leg_id": "CAL000113",
+			"name": "Torres"
+		}, {
+			"leg_id": "CAL000103",
+			"name": "Nielsen"
+		}, {
+			"leg_id": "CAL000003",
+			"name": "Leno"
+		}, {
+			"leg_id": "CAL000107",
+			"name": "Monning"
+		}, {
+			"leg_id": "CAL000022",
+			"name": "Huff"
+		}, {
+			"leg_id": "CAL000062",
+			"name": "Galgiani"
+		}, {
+			"leg_id": "CAL000426",
+			"name": "Vidak"
+		}, {
+			"leg_id": "CAL000065",
+			"name": "Knight"
+		}, {
+			"leg_id": "CAL000327",
+			"name": "Roth"
+		}, {
+			"leg_id": "CAL000006",
+			"name": "Steinberg"
+		}, {
+			"leg_id": "CAL000102",
+			"name": "Gaines"
+		}, {
+			"leg_id": "CAL000005",
+			"name": "Wolk"
+		}, {
+			"leg_id": "CAL000034",
+			"name": "Padilla"
+		}, {
+			"leg_id": "CAL000161",
+			"name": "Mitchell"
+		}, {
+			"leg_id": "CAL000044",
+			"name": "Block"
+		}, {
+			"leg_id": "CAL000154",
+			"name": "Morrell"
+		}, {
+			"leg_id": "CAL000077",
+			"name": "Evans"
+		}, {
+			"leg_id": "CAL000133",
+			"name": "Cannella"
+		}, {
+			"leg_id": "CAL000087",
+			"name": "Fuller"
+		}, {
+			"leg_id": "CAL000051",
+			"name": "Beall"
+		}, {
+			"leg_id": "CAL000025",
+			"name": "Walters"
+		}, {
+			"leg_id": "CAL000037",
+			"name": "Correa"
+		}, {
+			"leg_id": "CAL000083",
+			"name": "Hill"
+		}],
+		"date": "2014-06-09 19:38:00",
+		"no_votes": [],
+		"vote_id": "CAV00105222",
+		"other_votes": [{
+			"leg_id": "CAL000085",
+			"name": "Berryhill"
+		}, {
+			"leg_id": "CAL000009",
+			"name": "Hancock"
+		}, {
+			"leg_id": "CAL000008",
+			"name": "Yee"
+		}, {
+			"leg_id": "CAL000035",
+			"name": "Wright"
+		}, {
+			"leg_id": "CAL000155",
+			"name": "Lara"
+		}, {
+			"leg_id": "CAL000036",
+			"name": "Calderon"
+		}, {
+			"leg_id": "CAL000072",
+			"name": "Lieu"
+		}],
+		"yes_count": 33,
+		"motion": "3rd Reading AB215 Buchanan By Padilla",
+		"chamber": "upper",
+		"bill_id": "CAB00010396"
+	}],
+	"documents": [],
+	"title": "School employees: dismissal or suspension: hearings.",
+	"alternate_titles": ["Solid waste recycling."],
+	"companions": [],
+	"all_ids": ["CAB00010396"],
+	"+impact_clause": "An act to amend Sections 44932, 44934, 44935, 44936, 44937, 44939, 44940, 44941, 44943, 44944, and 44945 of, to add Sections 44934.1, 44939.1, 44939.5, 44941.1, 44944.05, and 44944.3 to, and to repeal and add Section 44944.1 of, the Education Code, relating to school employees.",
+	"state": "ca",
+	"subjects": [],
+	"chamber": "lower",
+	"type": ["bill", "fiscal committee", "local program"],
+	"sponsors": [{
+		"leg_id": "CAL000059",
+		"official_type": "LEAD_AUTHOR",
+		"type": "primary",
+		"name": "Buchanan"
+	}, {
+		"leg_id": "CAL000138",
+		"official_type": "PRINCIPAL_COAUTHOR",
+		"type": "primary",
+		"name": "Olsen"
+	}],
+	"updated_at": "2014-07-24 16:46:16",
+	"action_dates": {
+		"passed_upper": "2014-06-09 00:00:00",
+		"passed_lower": "2013-05-02 00:00:00",
+		"last": "2014-06-25 00:00:00",
+		"signed": "2014-06-25 00:00:00",
+		"first": "2013-01-31 00:00:00"
+	},
+	"created_at": "2013-02-02 00:05:49",
+	"versions": [{
+		"mimetype": "text/html",
+		"url": "http://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201320140AB215",
+		"doc_id": "CAD00041266",
+		"name": "AB215"
+	}],
+	"summary": "Existing law prohibits a permanent school employee from being dismissed, except for one or more of certain enumerated causes, including immoral or unprofessional conduct.\n\nThis bill would also include egregious misconduct, as defined, as a basis for dismissal.\n\nExisting law requires the governing board of a school district to give notice to a permanent employee of its intention to dismiss or suspend the employee, together with a written statement of charges, at the expiration of 30 days from the date of service of the notice, unless the employee demands a hearing.\n\nThis bill would additionally apply the above to egregious misconduct. The bill would authorize the governing board of a school district, if the governing board has given the above notice, based on written charges, to amend charges less than 90 days before the hearing on the charges only upon a showing of good cause. The bill would require that the employee be given a meaningful opportunity to respond to the amended charges. The bill would authorize proceedings, based solely on charges of egregious misconduct, to be initiated via an alternative process, which this bill would establish, as provided.\n\nExisting law prohibits the governing board of a school district from giving notice of dismissal or suspension of a permanent employee between May 15 and September 15 of any year.\n\nThis bill would authorize any notice of dismissal or suspension to be given at any time of year, as provided. The bill would require a notice of dismissal or suspension given outside of the instructional year of the schoolsite where the employee is physically employed to be in writing and served personally upon the employee. The bill would also revise various procedures for providing a notice of dismissal or suspension, and would impose various requirements for the filing of a demand for a hearing and the conduct of hearings by the Office of Administrative Hearings.\n\nExisting law authorizes the governing board of a school district to immediately suspend an employee and give him or her notice of dismissal upon the filing of written charges relating to immoral conduct, conviction of a felony or any crime involving moral turpitude, with incompetency due to mental disability, or with willful refusal to perform regular assignments without reasonable cause, as provided.\n\nThis bill would authorize an employee who has been placed on suspension pursuant to the above provisions to serve and file with the Office of Administrative Hearings a motion for immediate reversal of suspension, as provided.\n\nExisting law provides that upon being charged, as specified, with certain sex or controlled substance offenses, a certificated employee be placed on either a compulsory leave of absence or an optional leave of absence for certain enumerated violations.\n\nThis bill would revise the definitions of \"charged with a mandatory leave of absence offense\" and \"charged with an optional leave of absence offense\" for purposes of those provisions governing when a certificated employee is required to be placed on either a compulsory leave of absence or an optional leave of absence. Because these revisions would increase the number of employees subject to immediate placement on compulsory leave of absence, thereby increasing the duties of school districts, the bill would impose a state-mandated local program. \n\nExisting law requires in a dismissal or suspension proceeding against a permanent employee, if a hearing is requested by the employee, that the hearing be commenced within 60 days from the date of the employee's demand for a hearing.\n\nThis bill would, for dismissal or suspension proceedings that are not based solely on charges of egregious misconduct, require that the hearing be commenced within 6 months from the date of the employee's demand for a hearing, and be completed by a closing of the record within 7 months of the date of the employee's demand for a hearing. The bill would revise various procedures for the conduct of those hearings, as prescribed, including the authority to waive the conductibility of the hearing by a Commission on Professional Competence and instead have the hearing conducted by a single administrative law judge. The bill would require, in a dismissal or suspension proceeding carried out under the above provisions, that the parties make specified disclosures in lieu of certain written discovery, as prescribed, and would authorize the parties to obtain discovery by oral deposition. The bill would require the governing board of the school district and the state to share equally the expenses of the hearing if the Commission on Professional Competence determines that the employee should be dismissed or suspended. This bill would provide separate hearing procedures for dismissal or suspension proceedings that are based solely on charges of egregious misconduct, as provided.\n\nThe bill would also make conforming changes to these provisions.\n\nThe California Constitution requires the state to reimburse local agencies and school districts for certain costs mandated by the state. Statutory provisions establish procedures for making that reimbursement.\n\nThis bill would provide that, if the Commission on State Mandates determines that the bill contains costs mandated by the state, reimbursement for those costs shall be made pursuant to these statutory provisions. ",
+	"scraped_subjects": ["School employees: dismissal or suspension: hearings."],
+	"bill_id": "AB 215"
+})
