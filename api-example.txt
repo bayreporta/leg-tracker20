@@ -1264,3 +1264,248 @@
 	"scraped_subjects": ["School employees: dismissal or suspension: hearings."],
 	"bill_id": "AB 215"
 })
+
+
+
+
+? ({
+	"actions": [{
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Rules",
+			"id": "CAC000289"
+		}],
+		"actor": "upper",
+		"date": "2015-02-10 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Rules)"
+		},
+		"action": "Introduced. Read first time. To Standing Committee on Rules. for assignment. To print.",
+		"type": ["bill:reading:1", "bill:introduced"]
+	}, {
+		"related_entities": [],
+		"actor": "upper",
+		"date": "2015-02-11 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Rules)"
+		},
+		"action": "From printer. May be acted upon on or after March 13.",
+		"type": ["other"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Education",
+			"id": "CAC000274"
+		}],
+		"actor": "upper",
+		"date": "2015-02-19 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS44)",
+			"committee_code": "CS44"
+		},
+		"action": "Referred to Standing Committee on Education.",
+		"type": ["committee:referred"]
+	}, {
+		"related_entities": [],
+		"actor": "upper",
+		"date": "2015-03-06 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS44)"
+		},
+		"action": "Set for hearing March 18.",
+		"type": ["other"]
+	}],
+	"sources": [{
+		"url": "http://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201520160SB200"
+	}],
+	"session": "20152016",
+	"id": "CAB00015251",
+	"votes": [],
+	"documents": [],
+	"title": "Pupils: school district residency requirements.",
+	"alternate_titles": [],
+	"companions": [],
+	"all_ids": ["CAB00015251"],
+	"+impact_clause": "An act to amend Section 48204 of the Education Code, relating to pupils.",
+	"state": "ca",
+	"subjects": [],
+	"type": ["bill", "fiscal committee", "local program"],
+	"scraped_subjects": ["Pupils: school district residency requirements."],
+	"sponsors": [{
+		"leg_id": "CAL000155",
+		"official_type": "LEAD_AUTHOR",
+		"type": "primary",
+		"name": "Lara"
+	}],
+	"updated_at": "2015-03-08 00:13:16",
+	"action_dates": {
+		"passed_upper": null,
+		"passed_lower": null,
+		"last": "2015-03-06 00:00:00",
+		"signed": null,
+		"first": "2015-02-10 00:00:00"
+	},
+	"created_at": "2015-02-12 00:10:10",
+	"versions": [{
+		"mimetype": "text/html",
+		"url": "http://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201520160SB200",
+		"doc_id": "CAD00046121",
+		"name": "SB200"
+	}],
+	"summary": "Existing law requires persons between years of age, inclusive, 6 and 18 to attend a public school within the school district in which the pupil's parent or legal guardian resides, unless otherwise exempted. Existing law provides that a pupil complies with a school district's residency requirements for school attendance in that school district if the pupil meets one of the specified requirements.\n\nThis bill would provide that a pupil complies with a school district's residency requirements in instances where the pupil's parent or legal guardian resides outside of the boundaries of that school district but is employed and lives at the place of his or her employment within the boundaries of the school district for a minimum of 3 days during the school week. By requiring a school district to allow those pupils to attend the school district, thereby increasing the duties of a school district, this bill would impose a state-mandated local program.\n\nThe California Constitution requires the state to reimburse local agencies and school districts for certain costs mandated by the state. Statutory provisions establish procedures for making that reimbursement.\n\nThis bill would provide that, if the Commission on State Mandates determines that the bill contains costs mandated by the state, reimbursement for those costs shall be made pursuant to these statutory provisions.",
+	"chamber": "upper",
+	"bill_id": "SB 200"
+})
+
+? ({
+	"actions": [{
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Rules",
+			"id": "CAC000289"
+		}],
+		"actor": "upper",
+		"date": "2015-01-22 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Rules)"
+		},
+		"action": "Introduced. Read first time. To Standing Committee on Rules. for assignment. To print.",
+		"type": ["bill:reading:1", "bill:introduced"]
+	}, {
+		"related_entities": [],
+		"actor": "upper",
+		"date": "2015-01-23 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Rules)"
+		},
+		"action": "From printer. May be acted upon on or after February 22.",
+		"type": ["other"]
+	}, {
+		"related_entities": [{
+			"type": "committee",
+			"name": "Standing Committee on Education",
+			"id": "CAC000274"
+		}],
+		"actor": "upper",
+		"date": "2015-02-05 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS44)",
+			"committee_code": "CS44"
+		},
+		"action": "Referred to Standing Committee on Education.",
+		"type": ["committee:referred"]
+	}, {
+		"related_entities": [],
+		"actor": "upper",
+		"date": "2015-03-06 00:00:00",
+		"+actor_info": {
+			"details": "Senate (Committee CS44)"
+		},
+		"action": "Set for hearing March 18.",
+		"type": ["other"]
+	}],
+	"sources": [{
+		"url": "http://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201520160SB136"
+	}],
+	"session": "20152016",
+	"id": "CAB00015064",
+	"votes": [],
+	"documents": [],
+	"title": "Public contracts: University of California.",
+	"alternate_titles": [],
+	"companions": [],
+	"all_ids": ["CAB00015064"],
+	"+impact_clause": "An act to amend Section 10505 of the Public Contract Code, relating to public contracts.",
+	"state": "ca",
+	"subjects": [],
+	"type": ["bill", "fiscal committee"],
+	"scraped_subjects": ["Public contracts: University of California."],
+	"sponsors": [{
+		"leg_id": "CAL000477",
+		"official_type": "LEAD_AUTHOR",
+		"type": "primary",
+		"name": "Hall"
+	}],
+	"updated_at": "2015-03-08 00:13:04",
+	"action_dates": {
+		"passed_upper": null,
+		"passed_lower": null,
+		"last": "2015-03-06 00:00:00",
+		"signed": null,
+		"first": "2015-01-22 00:00:00"
+	},
+	"created_at": "2015-01-24 00:06:02",
+	"versions": [{
+		"mimetype": "text/html",
+		"url": "http://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201520160SB136",
+		"doc_id": "CAD00045934",
+		"name": "SB136"
+	}],
+	"summary": "Existing law requires the Regents of the University of California, except as specified, to let any contract for a project to the lowest responsible bidder. Existing law authorizes the regents to perform projects with university employees if the regents deem that the award of a contract, the acceptance of bids, or the acceptance of further bids is not in the best interest of the university and either the value of the project to be performed does not exceed $50,000, or the project is for the erection, construction, alteration, repair, or improvement of experimental, diagnostic, or specialized research equipment.\n\nThis bill would authorize projects on the campus at the University of California at Los Angeles to be performed with university employees if the value of the project does not exceed $100,000.",
+	"chamber": "upper",
+	"bill_id": "SB 136"
+})
+
+
+? ({
+	"actions": [{
+		"related_entities": [],
+		"actor": "lower",
+		"action": "Read first time. To print.",
+		"+actor_info": {
+			"details": "Assembly (Desk)"
+		},
+		"date": "2015-03-04 00:00:00",
+		"type": ["bill:reading:1"]
+		}, {
+		"related_entities": [],
+		"actor": "lower",
+		"action": "From printer. May be heard in committee April 4.",
+		"+actor_info": {
+			"details": "Assembly (Desk)"
+		},
+		"date": "2015-03-05 00:00:00",
+		"type": ["other"]
+	}],
+	"sources": [{
+		"url": "http://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201520160AB1510"
+	}],
+	"session": "20152016",
+	"id": "CAB00017136",
+	"votes": [],
+	"documents": [],
+	"title": "State government: federal immigration policy enforcement.",
+	"alternate_titles": [],
+	"companions": [],
+	"all_ids": ["CAB00017136"],
+	"+impact_clause": "An act relating to state government.",
+	"state": "ca",
+	"subjects": ["State Agencies"],
+	"type": ["bill"],
+	"scraped_subjects": ["State government: federal immigration policy enforcement."],
+	"sponsors": [{
+		"leg_id": null,
+		"official_type": "LEAD_AUTHOR",
+		"type": "primary",
+		"name": "Committee on Public Safety",
+		"committee_id": "CAC000335"
+	}],
+	"updated_at": "2015-03-07 00:14:05",
+	"action_dates": {
+		"passed_upper": null,
+		"passed_lower": null,
+		"last": "2015-03-05 00:00:00",
+		"signed": null,
+		"first": "2015-03-04 00:00:00"
+	},
+	"created_at": "2015-03-06 00:12:58",
+	"versions": [{
+		"mimetype": "text/html",
+		"url": "http://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201520160AB1510",
+		"doc_id": "CAD00048006",
+		"name": "AB1510"
+	}],
+	"summary": "Existing federal law authorizes any authorized immigration officer to issue an immigration detainer that serves to advise another law enforcement agency that the federal department seeks custody of an alien presently in the custody of that agency, for the purpose of arresting and removing the alien. Existing federal law provides that the detainer is a request that the agency advise the department, prior to release of the alien, in order for the department to arrange to assume custody in situations when gaining immediate physical custody is either impracticable or impossible.\n\nExisting state law prohibits a law enforcement official, as defined, from detaining an individual on the basis of a United States Immigration and Customs Enforcement hold after that individual becomes eligible for release from custody, unless, at the time that the individual becomes eligible for release from custody, certain conditions are met, including, among other things, that the individual has been convicted at any time of a felony for specified offenses and the continued detention of the individual on the basis of the immigration hold would not violate any federal, state, or local law, or any local policy.\n\nThis bill would state the intent of the Legislature to enact legislation relating to immigration.",
+	"chamber": "lower",
+	"bill_id": "AB 1510"
+})
