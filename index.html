@@ -8,12 +8,12 @@
 		#leg-app .relative {position:relative;}
 		#leg-app .left {float:left;}
 		#leg-app .right {float:right;}
-		#leg-app .height {height:50px;}
+		#leg-app .height {height:60px;}
 		#leg-app .align-center {text-align:center;}
-		#leg-app .block {text-align:center;width:26.5062%;float:left;}
+		#leg-app .block {text-align:center;width:30%;float:left;}
 		#leg-app .leg-end .block {width:50%;}
-		#leg-app .full {height:50px;}
-		#leg-app .half {height:25px;}
+		#leg-app .full {height:60px;}
+		#leg-app .half {height:29.3px;}
 		#leg-app .mute {font-size:.8em;color:#aaa;}
 		#leg-app .border {border-right: 1px #ddd solid;}
 		#leg-app a {text-decoration: none;}
@@ -27,26 +27,45 @@
 					.leg-title {font-size: .9em;color:#333;}
 					.leg-sum {font-size:.8em;color:#aaa;}
 				.leg-date {width:5%;padding:0 1%;}
-					.leg-date>div {padding:28% 0;}
-				.leg-length {width:9%;padding:7px 1%;}
-					.leg-length>div:first-of-type {font-size: .9em;color:#333;}
-					.leg-length>div:last-of-type {}
-				.leg-viz {width:40%;padding:0;margin:0;}
-					.leg-leg {width:84.86%;border-left: 1px solid #ddd;border-right: 1px solid #ddd;}
+					.leg-date>div {padding:20px 0;}
+				.leg-length {width:5%;padding:7px 1%;}
+					.leg-length>div:first-of-type {font-size: 1.5em;color: #aaa;padding-top:12%;}
+				.leg-viz {width:50%;padding:0;margin:0;}
+					.leg-leg {width:80%;border-left: 1px solid #ddd;}
 						.leg-upper {width: 89%;border-bottom: 1px #ddd solid;}
 							.leg-upper .leg-level {border-bottom: 1px #ddd solid;}
 						.leg-lower {width: 89%;}
-							.leg-level {position:relative;border-right: 1px solid #ddd;width:19.7%;float:left;}
+							.leg-level {position:relative;border-right: 1px solid #ddd;width:6%;float:left;}
 								.leg-level>div {padding-top:4px;}
 							.leg-intro {}
 							.leg-commit {}
 							.leg-floor {}
 						.leg-enroll {width: 10.7684%}
-					.leg-end {width:15%;border-right: 1px solid #ddd;}
+					.leg-end {width:19.8%;}
 						.leg-gov {}
 						.leg-chapter {}
 						.leg-length {}
 			#leg-foot {}
+
+		@media screen and (max-width:1084px){
+			.leg-lower, .leg-upper {width: 88%;}
+			.leg-end {width:19.7%;}
+		}
+
+		@media screen and (max-width:850px){
+			.leg-length {display:none;}
+			.leg-date {width:10%;}
+			.leg-meta {width:37%;}
+		}
+
+		@media screen and (max-width:850px){
+			.leg-row, #leg-app .full, #leg-app .height {height:90px;}
+			#leg-app .half {height:44.5px;}
+			.leg-date {display:none;}
+			.leg-meta {width:37%;}
+			.leg-viz {width:62%;}
+			.leg-leg {width:79%;}
+		}
 	</style>
 </head>
 <body>

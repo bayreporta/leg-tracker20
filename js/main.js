@@ -8,8 +8,8 @@ var legTrack = {
 		totalBills:null,
 		pubkey:null,
 		full: [],
-		upperName: 'Senate',
-		lowerName: 'Assembly',
+		upperName: 'S',
+		lowerName: 'A',
 		upper:40, //make dynamic
 		lower:80 //make dynamic
 	},
@@ -22,7 +22,7 @@ var legTrack = {
 		row:'<div class="leg-row height"></div>',
 		meta:'<div class="leg-meta left"><a href=""><div class="leg-title"></div></a><a href=""><div class="leg-sum mute"></div></a></div>',
 		date:'<div class="leg-date left align-center height"><div class="mute"></div></div>',
-		length:'<div class="leg-length left"><div class="align-center"></div><div class="align-center mute"></div></div>',
+		length:'<div class="leg-length left"><div class="align-center"></div></div>',
 		viz:{
 			base:'<div class="leg-viz left height"></div>',
 			leg:{
@@ -30,10 +30,10 @@ var legTrack = {
 				enroll:'<div class="leg-enroll full right"></div>',
 				upper:'<div class="leg-upper half left border"></div>',
 				lower:'<div class="leg-lower half left border"></div>',
-				inside:'<div class="leg-level align-center half mute"><div></div></div><div class="leg-intro block half border"></div><div class="leg-commit block half border"></div><div class="leg-floor block half"></div>'
+				inside:'<div class="leg-level align-center half mute"><div></div></div><div class="leg-intro block half"></div><div class="leg-commit block half"></div><div class="leg-floor block half"></div>'
 
 			},
-			end:'<div class="leg-end right height full"><div class="leg-gov block full"></div><div class="leg-chapter block full"></div></div>'  
+			end:'<div class="leg-end left height full"><div class="leg-gov block full"></div><div class="leg-chapter block full"></div></div>'  
 		}
 	},
 	data:[],
@@ -63,7 +63,6 @@ var legTrack = {
 
 			/* add length */
 			$('.leg-row:eq('+i+') .leg-length div:eq(0)').text(out[i].meta.daysSinceFirst);
-			$('.leg-row:eq('+i+') .leg-length div:eq(1)').text('days since introduced');
 
 
 			/* FIRST CHAMBER
@@ -74,7 +73,7 @@ var legTrack = {
 
 			/* viz conditionals */
 			if (out[i].status.flags.introduced != null){
-				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-intro').css('background', this.colors.current);
+				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-intro').add('.leg-row:eq('+i+') .leg-leg '+org+' .leg-level').css({'background': this.colors.current, color: '#fff'});
 			}
 
 			// Committees
@@ -94,11 +93,11 @@ var legTrack = {
 
 			//floor
 			if (out[i].status.flags[chamber].action == true){
-				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').css('background', this.colors.passed);
-				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-intro').css('background', this.colors.current);
+				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+org+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+org+'').css('background', this.colors.passed);
+				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-intro').add('.leg-row:eq('+i+') .leg-leg '+next+' .leg-level').css({'background': this.colors.current, color: '#fff'});
 			}
 			else if (out[i].status.flags[chamber].action == false){
-				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').css('background', this.colors.failed);
+				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+org+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+org+'').css('background', this.colors.failed);
 				continue;
 			}
 			else if (out[i].status.flags[chamber].floor == true){
@@ -124,17 +123,17 @@ var legTrack = {
 
 			//floor
 			if (out[i].status.flags[chamber].action == true){
-				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-floor').css('background', this.colors.passed);
+				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+next+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+next+'').css('background', this.colors.passed);
 			}
 			else if (out[i].status.flags[chamber].action == false){
-				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-floor').css('background', this.colors.failed);
+				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+next+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+next+'').css('background', this.colors.failed);
 				continue;
 			}
 			else if (out[i].status.flags[chamber].floor == true){
 				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').css('background', this.colors.current);
 
 				if (out[i].status.flag.endGame.reconcile[chamber] != null){
-					$('.leg-row:eq('+i+') .leg-leg .leg-enroll').css('background', this.colors.current);
+					$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.current);
 				}
 				else if (out[i].status.flag.endGame.governor.enrolled == true){
 					$('.leg-row:eq('+i+') .leg-end .leg-gov').css('background', this.colors.current);
@@ -146,14 +145,14 @@ var legTrack = {
 			=============================================*/
 			//reconcile
 			if (out[i].status.flags.endGame.reconcile[chamber] == true){
-				$('.leg-row:eq('+i+') .leg-leg .leg-enroll').css('background', this.colors.passed);
+				$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.passed);
 		
 				if (out[i].status.flags.endGame.governor.enrolled == true){
 					$('.leg-row:eq('+i+') .leg-end .leg-gov div:eq(0)').css('background', this.colors.current);
 				}
 			}
 			else if (out[i].status.flags.endGame.reconcile[chamber] === false){
-				$('.leg-row:eq('+i+') .leg-leg .leg-enroll').css('background', this.colors.failed);
+				$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.failed);
 				continue;
 			}
 
