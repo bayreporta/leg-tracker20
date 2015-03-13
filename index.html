@@ -1,4 +1,5 @@
 <html>
+<body>
 <head>
 	<title></title>
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400italic,400,700' rel='stylesheet' type='text/css'>
@@ -7,41 +8,41 @@
 		#leg-app .relative {position:relative;}
 		#leg-app .left {float:left;}
 		#leg-app .right {float:right;}
-		#leg-app .height {height:35px;}
+		#leg-app .height {height:50px;}
 		#leg-app .align-center {text-align:center;}
-		#leg-app .block {text-align:center;width:25%;float:left;}
+		#leg-app .block {text-align:center;width:26.5062%;float:left;}
 		#leg-app .leg-end .block {width:50%;}
-		#leg-app .full {height:35px;}
-		#leg-app .half {height:17.5px;}
+		#leg-app .full {height:50px;}
+		#leg-app .half {height:25px;}
 		#leg-app .mute {font-size:.8em;color:#aaa;}
+		#leg-app .border {border-right: 1px #ddd solid;}
 		#leg-app a {text-decoration: none;}
 		#leg-app a:hover {text-decoration: underline;color:#aaa;}
 
-		#leg-app {width:100%;}
-			.leg-row {width:100%;border-bottom:1px #ddd solid;padding:10px 0;}
+		#leg-app {width:98%;padding:0 1%;}
+			.leg-row {width:100%;border-bottom:1px #aaa solid;padding:0;}
 			#leg-hed {}
 			#leg-body {}
-				.leg-meta {width:39%;padding:0 1%;}
+				.leg-meta {width:35%;padding:5px 1% 5px 0;height:35px;}
 					.leg-title {font-size: .9em;color:#333;}
 					.leg-sum {font-size:.8em;color:#aaa;}
-				.leg-date {width:7%;padding:0 1%;}
-					.leg-date>div {padding:6% 0;}
-				.leg-length {width:6%;padding:0 1%;}
+				.leg-date {width:5%;padding:0 1%;}
+					.leg-date>div {padding:28% 0;}
+				.leg-length {width:9%;padding:7px 1%;}
 					.leg-length>div:first-of-type {font-size: .9em;color:#333;}
 					.leg-length>div:last-of-type {}
-				.leg-viz {width:40%;padding:0;margin:0 1%;}
-					.leg-leg {width:85%;border-left: 1px solid #ddd;}
-						.leg-upper {width: 90%;}
+				.leg-viz {width:40%;padding:0;margin:0;}
+					.leg-leg {width:84.86%;border-left: 1px solid #ddd;border-right: 1px solid #ddd;}
+						.leg-upper {width: 89%;border-bottom: 1px #ddd solid;}
 							.leg-upper .leg-level {border-bottom: 1px #ddd solid;}
-						.leg-lower {width: 90%;}
-							.leg-level {position:relative;border-right: 1px solid #ddd;}
-								.leg-upper .leg-level>div {margin-top: -5px;}
-								.leg-lower .leg-level>div {margin-top: 5px;}
+						.leg-lower {width: 89%;}
+							.leg-level {position:relative;border-right: 1px solid #ddd;width:19.7%;float:left;}
+								.leg-level>div {padding-top:4px;}
 							.leg-intro {}
 							.leg-commit {}
 							.leg-floor {}
-						.leg-enroll {width: 10%}
-					.leg-end {width:15%;}
+						.leg-enroll {width: 10.7684%}
+					.leg-end {width:15%;border-right: 1px solid #ddd;}
 						.leg-gov {}
 						.leg-chapter {}
 						.leg-length {}
@@ -51,42 +52,16 @@
 <body>
 	<div id="leg-app">
 		<div id="leg-hed" class="relative"></div>
-		<div id="leg-body" class="relative">
-			<div class="leg-row height">
-				<div class="leg-meta left height">
-					<a href=""><div class="leg-title"></div></a>
-					<a href=""><div class="leg-sum mute"></div></a>
-				</div>
-				<div class="leg-date left align-center height">
-					<div></div>
-				</div>	
-				<div class="leg-length left">
-					<div class="align-center"></div>
-					<div class="align-center mute"></div>
-				</div>
-				<div class="leg-viz right height">
-					<div class="leg-leg left height">
-						<div class="leg-enroll full right"></div>
-						<div class="leg-upper half left">
-							<div class="leg-level block half mute"><div></div></div>
-							<div class="leg-intro block half"></div>
-							<div class="leg-commit block half"></div>
-							<div class="leg-floor block half"></div>		
-						</div>
-						<div class="leg-lower half left">
-							<div class="leg-level block half mute"><div></div></div>
-							<div class="leg-intro block half"></div>
-							<div class="leg-commit block half"></div>
-							<div class="leg-floor block half"></div>							
-						</div>
-					</div>
-					<div class="leg-end right height full">
-						<div class="leg-gov block full"></div>
-						<div class="leg-chapter block full"></div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div id="leg-body" class="relative"></div>
+		<div id="leg-foot" class="relative"></div>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
+	<div id="leg-app">
+		<div id="leg-hed" class="relative"></div>
+		<div id="leg-body" class="relative"></div>
 		<div id="leg-foot" class="relative"></div>
 	</div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
