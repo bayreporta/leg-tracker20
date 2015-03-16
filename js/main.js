@@ -132,11 +132,10 @@ var legTrack = {
 			}
 			else if (out[i].status.flags[chamber].floor == true){
 				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').css('background', this.colors.current);
-
-				if (out[i].status.flag.endGame.reconcile[chamber] != null){
+				if (out[i].status.flags.endGame.reconcile[chamber] != null){
 					$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.current);
 				}
-				else if (out[i].status.flag.endGame.governor.enrolled == true){
+				else if (out[i].status.flags.endGame.governor.enrolled == true){
 					$('.leg-row:eq('+i+') .leg-end .leg-gov').css('background', this.colors.current);
 				}
 			
@@ -175,7 +174,6 @@ var legTrack = {
 	},
 	parseDetails: function(d, tot, out){
 		/* grab the meat and potatoes for the app front-end */
-		
 		for (var i=0 ; i < tot ; i++){
 			out[i] = new Object();
 

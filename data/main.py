@@ -4,12 +4,20 @@ import sunlight
 #### API KEY ####
 sunlight.config.API_KEY = 'fbc69b7552fa42979aef5d8009291eb6'
 
-### GLOBALS ####
+### GLOBALS - API ####
 totalBills = 0
-variables = {'bills': 'bills', 'meta':'main'}
+filenames = {'bills': 'bills', 'meta':'main'}
 fullURL = []
 meatPotatoes = []
-	
+
+### GLOBALS - GET BILLS ####
+calibrate = {
+	'subject': 'Education',
+	'session': '20152016',
+	'state': 'ca'
+}
+
+
 #### GET LOCAL BILL LIST ####
 def import_csv(path):
 	data = []
@@ -21,54 +29,65 @@ def import_csv(path):
 			i += 1
 	return data;
 
-def calibrate_app(meta, var, tot, bills):
-	global fullURL
-	var['state'] = meta[1][1].lower()
-	var['session'] = str(meta[2][1])
-	var['pubkey'] = meta[3][1]
-	
-	ii = 0
-	for i in range(1,tot):
-		fullURL.insert(ii, 'http://openstates.org/api/v1/bills/' + var['state'] + '/' + var['session'] + '/' + bills[i][0] + '/?apikey=' + var['pubkey'] + '&callback=?')
-		print fullURL[ii]
-		ii += 1
-	return var
-
-def bringSunlight(bills, tot):
+### CALL API AND RETREIVE DATA ###
+def bringSunlight(bills, cal):
+	tot = len(bills)
 	deets = []
-	for i in range(1,tot):
-		deets.insert(i, sunlight.openstates.bill_detail('ca','20152016',bills[i][0]))
+	for i in range(0,tot):
+		deets.insert(i, sunlight.openstates.bill_detail(cal['state'],cal['session'], bills[i]))
+		print i
 	return deets
 
+### OUTPUT JSON ###
 def output_json(path, data):
 	with open(path + '.json', "w") as file:
 		json.dump(data, file)
+		
+### GRAB BILLS FOR APP ###		
+def grab_bills(cal):
+	b = []
+	list = []
+	b = sunlight.openstates.bills(
+		q=cal['subject'],
+		session=cal['session'],
+		state=cal['state']
+	)
+	
+	### GRAB ONLY THE BILLS THAT APPLY TO CURRENT SESSION ###
+	ii=0
+	for i in range(0, len(b)):
+		if b[i]['session'] == '20152016':
+			list.insert(i, b[ii]['bill_id'])
+			ii += 1
+	return list
 
 def main():
 	### CALL GLOBALS ###
-	global totalBills
-	global variables
+	global filenames
 	global fullURL
 	global meatPotatoes
+	global calibrate
 	
-	### GET BILL LIST ###
-	bills = import_csv(variables['bills'])
-	del bills[0]
-	totalBills = len(bills)
-	
+	### AUTO GRAB BILLS FROM OPENSTATES ###
+	meatPotatoes = grab_bills(calibrate);
+
 	### CALL API ###
-	meatPotatoes = bringSunlight(bills, totalBills)
+	meatPotatoes = bringSunlight(meatPotatoes, calibrate)
 	
 	### OUTPUT FILE ###
-	output_json(variables['bills'], meatPotatoes)
+	output_json(filenames['bills'], meatPotatoes)
 	
+	### MANUAL GRAB BILLS ###
+	#bills = import_csv(filenames['bills'])
+	#del bills[0]
+	#totalBills = len(bills)
+		
 	
 	### GET META DATA ###
 	#meta = import_csv(variables['meta'])
 	
-	### CALIBRATE APP ###
-	#variables = calibrate_app(meta, variables, totalBills, bills)
-	
+
 
 if __name__ == '__main__':
 	main();
+	
