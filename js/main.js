@@ -2,6 +2,7 @@
 ========================================================================*/
 var legTrack = {
 	calibrate:{
+		path:'bills',
 		state:null,
 		session:null,
 		bills:[],
@@ -171,13 +172,11 @@ var legTrack = {
 				$('.leg-row:eq('+i+') .leg-end .leg-chapter').css('background', this.colors.passed);
 			}	
 		}
-
-
 	},
-	parseDetails: function(d, cal, out){
+	parseDetails: function(d, tot, out){
 		/* grab the meat and potatoes for the app front-end */
 		
-		for (var i=0 ; i < cal.totalBills ; i++){
+		for (var i=0 ; i < tot ; i++){
 			out[i] = new Object();
 
 				/* META DATA
@@ -391,52 +390,14 @@ var legTrack = {
 			}
 		}
 	},
-	calibrateApp: function(cal){
-		/* grab meta data for accessing OpenStates API */
-		$.getJSON('data/main.json', function(d){
-			var state = d[1][1];
-			cal.state = state.toLowerCase();
-			cal.session = d[2][1];
- 			cal.pubkey = d[3][1];
-
- 			/* Weave the API call URL based on above and bill data */
- 			for (var i=0 ; i < cal.totalBills ; i++){
- 				if (i == 3 || i == 7 || i == 8){
- 					cal.full[i] = 'http://openstates.org/api/v1/bills/' + cal.state + '/20132014/' + cal.bills[i][0] + '/?apikey=' + cal.pubkey + '&callback=?';
- 				}
- 				else {
- 					cal.full[i] = 'http://openstates.org/api/v1/bills/' + cal.state + '/' + cal.session + '/' + cal.bills[i][0] + '/?apikey=' + cal.pubkey + '&callback=?';
- 				} 			
- 				//console.log(cal.full[i])
- 			}
+	importJSON: function(path){
+		$.getJSON('data/' + path + '.json', function (d) {
+			legTrack.data = d; 
+			legTrack.calibrate.totalBills = legTrack.data.length;
+			legTrack.parseDetails(legTrack.data, legTrack.calibrate.totalBills, legTrack.output);
 		});
-		setTimeout(function(){legTrack.callAPI(cal);}, 1000);
-	},
-	grabBills: function(cal){
-		/* figure out the bills to look up through API */
-		$.getJSON('data/bills.json', function (d) {
-			for (var i=1 ; i < d.length ; i++){
-				cal.bills[i-1] = new Array();
-				var bill = d[i][0];
-				cal.bills[i-1][0] = bill.replace(' ', '%20');
-				cal.bills[i-1][1] = d[i][1];
-				cal.bills[i-1][2] = d[i][2];
-				cal.totalBills += 1;
-			}
-		});
-		legTrack.calibrateApp(cal);
-	},
-	callAPI: function(cal){
-		for (var i = 0 ; i < cal.totalBills ; i++){
-			(function(i){ //this is needed because the loop executes before jSON returns value
-				$.getJSON(cal.full[i], function (d) {legTrack.data[i] = d;});				
-		   	})(i);
-		}
-		setTimeout(function(){legTrack.parseDetails(legTrack.data, cal, legTrack.output);}, 2000);
 	}
 }
-
-window.onload = function(){legTrack.grabBills(legTrack.calibrate);}
-
+window.onload = function(){legTrack.importJSON(legTrack.calibrate.path);}
 
 
