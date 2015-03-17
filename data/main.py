@@ -1,4 +1,4 @@
-import csv, json, urllib2, re
+import csv, json, urllib2, re, time
 import sunlight
 
 #### API KEY ####
@@ -76,6 +76,7 @@ def bringSunlight(bills, cal):
 	tot = len(bills)
 	deets = []
 	for i in range(0,tot):
+		time.sleep(.2)
 		deets.insert(i, sunlight.openstates.bill_detail(cal['state'],cal['session'], bills[i]))
 		print i
 	
@@ -102,8 +103,8 @@ def parse_meta(d):
 	return data
 	
 ### DETERMINE AND APPLY FILTERS TO BILLS ###
-def apply_filters():
-	d = import_json('meta')
+def apply_filters(d):
+	#d = import_json('meta')
 	rawFilter = import_csv('filters', 'rU')
 	cleanFilter = []
 	filterTest = []
@@ -152,7 +153,7 @@ def main():
 	billMeta = parse_meta(meatPotatoes)
 	
 	### MATCH FILTERS ###
-	billsFiltered = apply_filters()
+	billsFiltered = apply_filters(billMeta)
 	
 
 
