@@ -70,8 +70,6 @@ def main():
 	### AUTO GRAB BILLS FROM OPENSTATES ###
 	meatPotatoes = grab_bills(calibrate);
 
-
-	print meatPotatoes
 	### CALL API ###
 	meatPotatoes = bringSunlight(meatPotatoes, calibrate)
 
