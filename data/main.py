@@ -1,4 +1,4 @@
-import csv, json, urllib2
+import csv, json, urllib2, re
 import sunlight
 
 #### API KEY ####
@@ -6,9 +6,9 @@ sunlight.config.API_KEY = 'fbc69b7552fa42979aef5d8009291eb6'
 
 ### GLOBALS - API ####
 totalBills = 0
-filenames = {'bills': 'bills', 'meta':'main'}
 fullURL = []
 meatPotatoes = []
+billsFiltered = []
 
 ### GLOBALS - GET BILLS ####
 calibrate = {
@@ -17,31 +17,35 @@ calibrate = {
 	'state': 'ca'
 }
 
+## UTILITY FUNCTIONS
+#======================================
 
-#### GET LOCAL BILL LIST ####
-def import_csv(path):
-	data = []
+#### IMPORT CSV FILE ####
+def import_csv(path, opt):
+	d = []
 	i=0
-	with open(path + '.csv', 'rb') as csvFile:
+	with open(path + '.csv', opt) as csvFile:
 		temp = csv.reader(csvFile, delimiter=',')
 		for row in temp:
-			data.insert(i, row)
+			d.insert(i, row)
 			i += 1
-	return data;
+	return d;
 
-### CALL API AND RETREIVE DATA ###
-def bringSunlight(bills, cal):
-	tot = len(bills)
-	deets = []
-	for i in range(0,tot):
-		deets.insert(i, sunlight.openstates.bill_detail(cal['state'],cal['session'], bills[i]))
-	return deets
+### IMPORT JSON ###
+def import_json(path):
+	d = []
+	with open(path + '.json') as file:
+		 d = json.load(file)
+	return d
 
 ### OUTPUT JSON ###
 def output_json(path, data):
 	with open(path + '.json', "w") as file:
 		json.dump(data, file)
 		
+
+## API FUNCTIONS
+#======================================
 ### GRAB BILLS FOR APP ###		
 def grab_bills(cal):
 	b = []
@@ -52,19 +56,90 @@ def grab_bills(cal):
 		state=cal['state']
 	)
 	
-	### GRAB ONLY THE BILLS THAT APPLY TO CURRENT SESSION ###
+	### GRAB ONLY THE BILLS THAT APPLY TO CURRENT SESSION AND ARE AB or SB ###
 	ii=0
+	regex = [r'(AB)',r'(SB)']
 	for i in range(0, len(b)):
 		if b[i]['session'] == '20152016':
-			list.insert(i, b[ii]['bill_id'])	
-			ii += 1
+			test = [0, 0]
+			test[0] = re.search(regex[0],b[i]['bill_id'])
+			test[1] = re.search(regex[1],b[i]['bill_id'])
+			if test[0] != None:
+				list.insert(i, b[ii]['bill_id'])
+			elif test[1] != None:
+				list.insert(i, b[ii]['bill_id'])
+		ii += 1
 	return list
+	
+### CALL API AND RETREIVE DATA ###
+def bringSunlight(bills, cal):
+	tot = len(bills)
+	deets = []
+	for i in range(0,tot):
+		deets.insert(i, sunlight.openstates.bill_detail(cal['state'],cal['session'], bills[i]))
+		print i
+	
+	### OUTPUT BILL DETAILS ###
+	output_json('bills', deets)
+	return deets
+
+
+## FILTER FUNCTIONS
+#======================================
+
+### PULL OUT SUMMARY AND TITLE ###
+def parse_meta(d):
+	data = []
+	for i in range(0, len(d)):
+		test = 'none'
+		try:
+			d[i]['summary']
+		except NameError:
+			print 'none'
+		else:
+			test = d[i]['summary']
+		data.insert(i, [d[i]['title'], test])	
+	return data
+	
+### DETERMINE AND APPLY FILTERS TO BILLS ###
+def apply_filters():
+	d = import_json('meta')
+	rawFilter = import_csv('filters', 'rU')
+	cleanFilter = []
+	filterTest = []
+
+	### MAKE PROPER FILTERS ###
+	ii = 0
+	for i in range(1, len(rawFilter)):
+		prog = re.compile(r'[^\[^\']+', re.IGNORECASE)
+		text = prog.search(str(rawFilter[i]))
+		cleanFilter.insert(ii, text.group())
+		ii += 1  
+
+	### CHECK META TO FILTERS ###
+	for i in range(0,len(d)):
+		filterTest.insert(i, [])
+		for ii in range(0,len(cleanFilter)):
+			prog = re.compile(r'('+cleanFilter[ii]+')+',re.IGNORECASE)
+			title = prog.search(d[i][0])
+			sum = prog.search(d[i][1])
+			
+			if sum != None:
+				filterTest[i].insert(ii, True)
+			elif title != None:	
+				filterTest[i].insert(ii, True)
+			else:
+				filterTest[i].insert(ii, False)	
+	output_json('filters',filterTest)
+	return filterTest
+
+## THE MAIN FUNCTION
+#======================================
 
 def main():
 	### CALL GLOBALS ###
-	global filenames
-	global fullURL
 	global meatPotatoes
+	global billsFiltered
 	global calibrate
 	
 	### AUTO GRAB BILLS FROM OPENSTATES ###
@@ -73,18 +148,11 @@ def main():
 	### CALL API ###
 	meatPotatoes = bringSunlight(meatPotatoes, calibrate)
 
+	### PARSE META ###
+	billMeta = parse_meta(meatPotatoes)
 	
-	### OUTPUT FILE ###
-	output_json(filenames['bills'], meatPotatoes)
-	
-	### MANUAL GRAB BILLS ###
-	#bills = import_csv(filenames['bills'])
-	#del bills[0]
-	#totalBills = len(bills)
-		
-	
-	### GET META DATA ###
-	#meta = import_csv(variables['meta'])
+	### MATCH FILTERS ###
+	billsFiltered = apply_filters()
 	
 
 
