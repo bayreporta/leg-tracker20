@@ -42,15 +42,23 @@ var legTrack = {
 	populateApp: function(temp, out){
 		/* Populate bill data, row by row */
 		var body = document.getElementById('leg-body');
+		var fragRow = document.createDocumentFragment();
 		for (var i=0 ; i < out.length; i++){
 			/* append the DOM */
-			$(body).append(temp.row);
-				$('.leg-row:eq('+i+')').append(temp.meta,temp.date,temp.length,temp.viz.base);
+			var row = document.createElement('div');
+			row .className = 'leg-row height';
+
+			fragRow = row;
+			body.appendChild(fragRow);	
+
+				$('.leg-row:eq('+i+')').append(temp.meta,temp.date,temp.length,temp.viz.base).attr('item', i);
 					$('.leg-row:eq('+i+') .leg-viz').append(temp.viz.leg.base, temp.viz.end);
 						$('.leg-row:eq('+i+') .leg-leg').append(temp.viz.leg.enroll, temp.viz.leg.upper, temp.viz.leg.lower).attr('origin', out[i].meta.chamber);
 							$('.leg-row:eq('+i+') .leg-upper').add('.leg-row:eq('+i+') .leg-lower').append(temp.viz.leg.inside);
-						
-				
+
+
+					
+			
 
 			/* add meta */
 			$('.leg-row:eq('+i+') .leg-meta a').attr('href', out[i].meta.source);
@@ -111,10 +119,12 @@ var legTrack = {
 			if (out[i].status.flags.committees[nxtchamber].status == 'referred'){
 				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-commit').css('background', this.colors.current);
 				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-intro').css('background', this.colors.passed);
+				continue;
 			}
 			else if (out[i].status.flags.committees[nxtchamber].status == true){
 				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-commit').css('background', this.colors.passed);
 				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-intro').css('background', this.colors.passed);
+				continue;
 			}
 			else if (out[i].status.flags.committees[nxtchamber].status == false){
 				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-commit').css('background', this.colors.failed);

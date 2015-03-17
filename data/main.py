@@ -35,7 +35,6 @@ def bringSunlight(bills, cal):
 	deets = []
 	for i in range(0,tot):
 		deets.insert(i, sunlight.openstates.bill_detail(cal['state'],cal['session'], bills[i]))
-		print i
 	return deets
 
 ### OUTPUT JSON ###
@@ -57,7 +56,7 @@ def grab_bills(cal):
 	ii=0
 	for i in range(0, len(b)):
 		if b[i]['session'] == '20152016':
-			list.insert(i, b[ii]['bill_id'])
+			list.insert(i, b[ii]['bill_id'])	
 			ii += 1
 	return list
 
@@ -71,8 +70,11 @@ def main():
 	### AUTO GRAB BILLS FROM OPENSTATES ###
 	meatPotatoes = grab_bills(calibrate);
 
+
+	print meatPotatoes
 	### CALL API ###
 	meatPotatoes = bringSunlight(meatPotatoes, calibrate)
+
 	
 	### OUTPUT FILE ###
 	output_json(filenames['bills'], meatPotatoes)
