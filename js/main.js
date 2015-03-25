@@ -3,6 +3,7 @@
 var legTrack = {
 	calibrate:{
 		path:'bills',
+		filterpath:'filters',
 		state:null,
 		session:null,
 		bills:[],
@@ -20,59 +21,129 @@ var legTrack = {
 		current:'#7676ce'
 	},
 	template:{
-		row:'<div class="leg-row height"></div>',
-		meta:'<div class="leg-meta left"><a href=""><div class="leg-title"></div></a><a href=""><div class="leg-sum mute"></div></a></div>',
-		date:'<div class="leg-date left align-center height"><div class="mute"></div></div>',
-		length:'<div class="leg-length left"><div class="align-center"></div></div>',
+		meta:'<div class=""></div></a><a href=""><div class=""></div></a></div>',
+		date:'<div class=""><div class=""></div></div>',
+		length:'<div class=""><div class=""></div></div>',
 		viz:{
-			base:'<div class="leg-viz left height"></div>',
+			base:'<div class=""></div>',
 			leg:{
-				base:'<div class="leg-leg left height"></div>',
-				enroll:'<div class="leg-enroll full right"></div>',
-				upper:'<div class="leg-upper half left border"></div>',
-				lower:'<div class="leg-lower half left border"></div>',
-				inside:'<div class="leg-level align-center half mute"><div></div></div><div class="leg-intro block half"></div><div class="leg-commit block half"></div><div class="leg-floor block half"></div>'
+				base:'<div class=""></div>',
+				enroll:'<div class=""></div>',
+				upper:'<div class=""></div>',
+				lower:'<div class=""></div>',
+				inside:'<div class=""><div></div></div><div class=""></div><div class=""></div><div class=""></div>'
 
 			},
-			end:'<div class="leg-end left height full"><div class="leg-gov block full"></div><div class="leg-chapter block full"></div></div>'  
+			end:'<div class=""><div class=""></div><div class=""></div></div>'  
 		}
 	},
+	search:{
+		rows:[]
+	},
+	questions:{
+		legPass:false,
+		legKill:false,
+		signed:false,
+		vetoed:false
+	},
+	filters:[],
 	data:[],
 	output:[],
 	populateApp: function(temp, out){
 		/* Populate bill data, row by row */
 		var body = document.getElementById('leg-body');
-		var fragRow = document.createDocumentFragment();
-		for (var i=0 ; i < out.length; i++){
-			/* append the DOM */
-			var row = document.createElement('div');
+		var fragRow = [];
+
+		/* SETTING UP FRAGS */
+		for (var i=0 ; i < 9 ; i++){
+			fragRow[i] = document.createDocumentFragment();
+		}
+
+		for (var i=0 ; i < out.length; i++){			
+			/* PREPARE ELEMENTS */
+			var row = document.createElement('div'), meta = document.createElement('div'), date = document.createElement('div'), date2 = document.createElement('div'), length = document.createElement('div'), length2 = document.createElement('div'), viz = document.createElement('div'), title = document.createElement('div'), sum = document.createElement('div'), link = document.createElement('a');
+			var div = document.createElement('div'), div2 = document.createElement('div'), leg = document.createElement('div'), enroll = document.createElement('div'), upper = document.createElement('div'), lower = document.createElement('div'), level = document.createElement('div'), intro = document.createElement('div'), commit= document.createElement('div'), floor = document.createElement('div'),level2 = document.createElement('div'), intro2 = document.createElement('div'), commit2= document.createElement('div'), floor2 = document.createElement('div'), gov=document.createElement('div'),endgame = document.createElement('div'), chaptered = document.createElement('div');
+
 			row .className = 'leg-row height';
+				meta .className = 'leg-meta left';
+					//link first
+					title .className = 'leg-title';
+					sum .className = 'leg-sum mute';
+				date .className = 'leg-date left align-center height';
+					date2 .className = 'mute';
+				length .className = 'leg-length left';
+					length2 .className = 'align-center';
+				viz .className = 'leg-viz left height';
+					leg .className = 'leg-leg left height';
+						enroll .className = 'leg-enroll full right';
+						upper .className = 'leg-upper half left border';
+							level .className = 'leg-level align-center half mute';
+							intro .className = 'leg-intro block half';
+							commit .className = 'leg-commit block half';
+							floor .className = 'leg-floor block half';
+						lower .className = 'leg-lower half left border';
+							level2 .className = 'leg-level align-center half mute';
+							intro2 .className = 'leg-intro block half';
+							commit2 .className = 'leg-commit block half';
+							floor2 .className = 'leg-floor block half';
+					endgame .className = 'leg-end left height full';	
+						gov .className = 'leg-gov block full';
+						chaptered .className = 'leg-chapter block full';
 
-			fragRow = row;
-			body.appendChild(fragRow);	
+			/* APPEND SUB-SECTIONS */
+			title.appendChild(document.createTextNode(out[i].meta.bill_id));
+			sum.appendChild(document.createTextNode(out[i].meta.title))
+			link.setAttribute('href', out[i].meta.source);
+			link.appendChild(title)
+			link.appendChild(sum);
+			meta.appendChild(link);
+			fragRow[1] = meta;
 
-				$('.leg-row:eq('+i+')').append(temp.meta,temp.date,temp.length,temp.viz.base).attr('item', i);
-					$('.leg-row:eq('+i+') .leg-viz').append(temp.viz.leg.base, temp.viz.end);
-						$('.leg-row:eq('+i+') .leg-leg').append(temp.viz.leg.enroll, temp.viz.leg.upper, temp.viz.leg.lower).attr('origin', out[i].meta.chamber);
-							$('.leg-row:eq('+i+') .leg-upper').add('.leg-row:eq('+i+') .leg-lower').append(temp.viz.leg.inside);
+			date2.appendChild(document.createTextNode(out[i].meta.lastStr));
+			date.appendChild(date2);
+			fragRow[2] = date;
 
+			length2.appendChild(document.createTextNode(out[i].meta.daysSinceFirst));
+			length.appendChild(length2);
+			fragRow[3] = length;
 
-					
-			
+			endgame.appendChild(gov);
+			endgame.appendChild(chaptered);
+			fragRow[4] = endgame;
 
-			/* add meta */
-			$('.leg-row:eq('+i+') .leg-meta a').attr('href', out[i].meta.source);
-			$('.leg-row:eq('+i+') .leg-meta div:eq(0)').text(out[i].meta.bill_id);
-			$('.leg-row:eq('+i+') .leg-meta div:eq(1)').text(out[i].meta.title);
-			$('.leg-row:eq('+i+') .leg-leg div:eq(1) .leg-level div').text(this.calibrate.upperName);
-			$('.leg-row:eq('+i+') .leg-leg div:last-of-type .leg-level div').text(this.calibrate.lowerName);
+			div.appendChild(document.createTextNode(this.calibrate.upperName));
+			div2.appendChild(document.createTextNode(this.calibrate.lowerName));
+			level.appendChild(div);
+			level2.appendChild(div2);
 
-			/* add last action */
-			$('.leg-row:eq('+i+') .leg-date div').text(out[i].meta.lastStr);
+			lower.appendChild(level2);
+			lower.appendChild(intro2);
+			lower.appendChild(commit2);
+			lower.appendChild(floor2);
+			fragRow[6] = lower;
 
-			/* add length */
-			$('.leg-row:eq('+i+') .leg-length div:eq(0)').text(out[i].meta.daysSinceFirst);
+			upper.appendChild(level);
+			upper.appendChild(intro);
+			upper.appendChild(commit);
+			upper.appendChild(floor);
+			fragRow[5] = upper;
 
+			leg.appendChild(enroll);
+			leg.appendChild(fragRow[5]);
+			leg.appendChild(fragRow[6]);
+			fragRow[7] = leg;
+
+			viz.appendChild(fragRow[7]);
+			viz.appendChild(fragRow[4]);
+			fragRow[8] = viz;
+
+			row.appendChild(fragRow[1]);
+			row.appendChild(fragRow[2]);
+			row.appendChild(fragRow[3]);
+			row.appendChild(fragRow[8]);
+			fragRow[0] = row;
+
+			body.appendChild(fragRow[0]);
 
 			/* FIRST CHAMBER
 			=============================================*/
@@ -107,6 +178,7 @@ var legTrack = {
 			}
 			else if (out[i].status.flags[chamber].action == false){
 				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+org+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+org+'').css('background', this.colors.failed);
+				$('.leg-row:eq('+i+')').attr('leg-killed', 'y');
 				continue;
 			}
 			else if (out[i].status.flags[chamber].floor == true){
@@ -138,6 +210,7 @@ var legTrack = {
 			}
 			else if (out[i].status.flags[chamber].action == false){
 				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+next+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+next+'').css('background', this.colors.failed);
+				$('.leg-row:eq('+i+')').attr('leg-killed', 'y');
 				continue;
 			}
 			else if (out[i].status.flags[chamber].floor == true){
@@ -147,6 +220,7 @@ var legTrack = {
 				}
 				else if (out[i].status.flags.endGame.governor.enrolled == true){
 					$('.leg-row:eq('+i+') .leg-end .leg-gov').css('background', this.colors.current);
+					$('.leg-row:eq('+i+')').attr('leg-pass', 'y');
 				}
 			
 			}
@@ -169,10 +243,12 @@ var legTrack = {
 			//governor
 			if (out[i].status.flags.endGame.governor.signed == true){
 				$('.leg-row:eq('+i+') .leg-end .leg-gov').css('background', this.colors.passed);
+				$('.leg-row:eq('+i+')').attr('signed', 'y');
 				$('.leg-row:eq('+i+') .leg-end .leg-chapter').css('background', this.colors.current);
 			}
 			else if (out[i].status.flags.endGame.governor.vetoed == true) {
 				$('.leg-row:eq('+i+') .leg-end .leg-gov').css('background', this.colors.failed);
+				$('.leg-row:eq('+i+')').attr('vetoed', 'y');
 				continue;
 			}
 
@@ -181,6 +257,8 @@ var legTrack = {
 				$('.leg-row:eq('+i+') .leg-end .leg-chapter').css('background', this.colors.passed);
 			}	
 		}
+		this.calibrateSearch();
+		this.applyQuestions(this.questions);
 	},
 	parseDetails: function(d, tot, out){
 		/* grab the meat and potatoes for the app front-end */
@@ -400,12 +478,145 @@ var legTrack = {
 	},
 	importJSON: function(path){
 		$.getJSON('data/' + path + '.json', function (d) {
-			legTrack.data = d; 
-			legTrack.calibrate.totalBills = legTrack.data.length;
-			legTrack.parseDetails(legTrack.data, legTrack.calibrate.totalBills, legTrack.output);
+			if (path === 'bills'){
+				legTrack.data = d; 
+				legTrack.calibrate.totalBills = legTrack.data.length;
+				legTrack.parseDetails(legTrack.data, legTrack.calibrate.totalBills, legTrack.output);
+			}
+			else if (path === 'filters'){
+				legTrack.filters = d;
+				console.log(d)
+			}
 		});
+	},
+	resetQuestions:function(q){
+		q.legPass = false, q.legKill = false, q.signed = false, q.vetoed = false;
+	},
+	applyQuestions:function(q){
+		$('.leg-questions').on('click', function(){
+			var question = $(this).attr('filter');
+
+			//GET AND RESET ALL ROWS AND SEARCH
+			var allRows =  document.getElementsByClassName('leg-row');
+			for (var i = 0 ; i < allRows.length ; i++){
+				allRows[i].style.display = "none";
+			}
+			$('#leg-search').val('');
+
+			switch(question){
+				case '0':
+					var theseRows = document.querySelectorAll('[leg-pass=y]');
+					if (q.legPass == false){
+						for (var i=0 ; i < theseRows.length ; i++){
+							theseRows[i].style.display = "block";
+				    	}
+				    	$('.leg-questions').css('background','#ddd');
+				    	$(this).css('background','#aaa');
+				    	legTrack.resetQuestions(q);
+						q.legPass = true;
+					}
+					else {
+						for (var i = 0 ; i < allRows.length ; i++){
+							allRows[i].style.display = "block";
+						}
+						$('.leg-questions').css('background','#ddd');
+						q.legPass = false;
+					}
+					break;
+				case '1':
+					var theseRows = document.querySelectorAll('[leg-kill=y]');
+					if (q.legKill == false){
+						for (var i=0 ; i < theseRows.length ; i++){
+							theseRows[i].style.display = "block";
+				    	}
+				    	$('.leg-questions').css('background','#ddd');
+				    	$(this).css('background','#aaa');
+				    	legTrack.resetQuestions(q);
+						q.legKill = true;
+					}
+					else {
+						for (var i = 0 ; i < allRows.length ; i++){
+							allRows[i].style.display = "block";
+						}
+						$('.leg-questions').css('background','#ddd');
+						q.legKill = false;
+					}
+					break;			
+				case '2':
+					var theseRows = document.querySelectorAll('[signed=y]');
+					if (q.signed == false){
+
+						for (var i=0 ; i < theseRows.length ; i++){
+							theseRows[i].style.display = "block";
+				    	}
+				    	$('.leg-questions').css('background','#ddd');
+				    	$(this).css('background','#aaa');
+				    	legTrack.resetQuestions(q);
+						q.signed = true;
+					}
+					else {
+						for (var i = 0 ; i < allRows.length ; i++){
+							allRows[i].style.display = "block";
+						}
+						$('.leg-questions').css('background','#ddd');
+						q.signed = false;
+					}
+					break;	
+				case '3':
+					var theseRows = document.querySelectorAll('[vetoed=y]');
+					if (q.vetoed == false){
+						for (var i=0 ; i < theseRows.length ; i++){
+							theseRows[i].style.display = "block";
+				    	}
+				    	$('.leg-questions').css('background','#ddd');
+				    	$(this).css('background','#aaa');
+				    	legTrack.resetQuestions(q);
+						q.vetoed = true;
+					}
+					else {
+						for (var i = 0 ; i < allRows.length ; i++){
+							allRows[i].style.display = "block";
+						}
+						$('.leg-questions').css('background','#ddd');
+						q.vetoed = false;
+					}
+					break;
+			}
+		})
+	},
+	calibrateSearch: function(){
+		this.search.rows =  document.getElementsByClassName('leg-row');
+
+		$('#execute-search').on('click', function(){legTrack.searchTool(legTrack.search.rows);});
+		$('#leg-search').on('keypress', function(e){
+			var key = e.which;
+			if (key == 13){legTrack.searchTool(legTrack.search.rows);}
+		});
+		$('#reset-search').on('click', function(){
+			clear = document.getElementsByClassName('leg-row');
+			for (var i=0 ; i < clear.length ; i++){
+				clear[i].style.display = 'block'
+			}
+		    $('#leg-search').val('');
+		})
+
+	},
+	searchTool: function(rows){
+		var val = $.trim($('#leg-search').val()).replace(/ +/g, ' ').toLowerCase();
+	    if (val !== '') {
+	    	 for (var i=0 ; i < rows.length ; i++){
+	    	 	rows[i].style.display = "block";
+
+	    	 	var testText = rows[i].textContent;
+	    		testText = testText.replace(/\s+/g, ' ').toLowerCase();
+				if (testText.indexOf(val) == -1){
+					rows[i].style.display = "none";
+				}
+	    	 }
+	    }
 	}
 }
-window.onload = function(){legTrack.importJSON(legTrack.calibrate.path);}
+
+window.onload = function(){legTrack.importJSON(legTrack.calibrate.filterpath);legTrack.importJSON(legTrack.calibrate.path);}
 
 

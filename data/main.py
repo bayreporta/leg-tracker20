@@ -76,9 +76,8 @@ def bringSunlight(bills, cal):
 	tot = len(bills)
 	deets = []
 	for i in range(0,tot):
-		time.sleep(.2)
+		time.sleep(1)
 		deets.insert(i, sunlight.openstates.bill_detail(cal['state'],cal['session'], bills[i]))
-		print i
 	
 	### OUTPUT BILL DETAILS ###
 	output_json('bills', deets)
@@ -118,19 +117,26 @@ def apply_filters(d):
 		ii += 1  
 
 	### CHECK META TO FILTERS ###
-	for i in range(0,len(d)):
+	length = len(d) + 1
+	iii = -1
+	print len(d)
+	for i in range(0,length):
+		print iii
 		filterTest.insert(i, [])
 		for ii in range(0,len(cleanFilter)):
+			if i == 0:
+				filterTest[i].insert(ii, rawFilter[ii])
+				continue			
 			prog = re.compile(r'('+cleanFilter[ii]+')+',re.IGNORECASE)
-			title = prog.search(d[i][0])
-			sum = prog.search(d[i][1])
-			
+			title = prog.search(d[iii][0])
+			sum = prog.search(d[iii][1])
 			if sum != None:
 				filterTest[i].insert(ii, True)
 			elif title != None:	
 				filterTest[i].insert(ii, True)
 			else:
 				filterTest[i].insert(ii, False)	
+		iii += 1
 	output_json('filters',filterTest)
 	return filterTest
 

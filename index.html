@@ -7,6 +7,24 @@
 </head>
 <body>
 	<div id="leg-app">
+		<div id="leg-filters">
+			<div id="leg-search-options">
+				<input id="leg-search" type="text" style="height:24px;" placeholder="Type to Search">
+				<div><p class="leg-button" id="execute-search">Search</p></div>
+				<div><p class="leg-button" id="reset-search">Reset</p></div>
+			</div>
+			<div id="leg-ask">
+				<div class="clear">
+					<h4>Ask a Question About Bills</h4>
+					<div><p class="leg-button leg-questions left" filter="0">Legislature Passed?</p></div>
+					<div><p class="leg-button leg-questions left" filter="1">Legislature Killed?</p></div>
+					<div><p class="leg-button leg-questions left" filter="2">Signed into Law?</p></div>
+					<div><p class="leg-button leg-questions left" filter="3">Vetoed Bills?</p></div>					
+				</div>
+			</div>
+			<div></div>
+		</div>
+
 		<div id="leg-hed" class="relative">
 			<div id="leg-hed-row">
 				<div id="leg-meta" class="left header"><div>Bill Title</div></div>
