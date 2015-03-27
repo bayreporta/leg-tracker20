@@ -20,23 +20,6 @@ var legTrack = {
 		failed:'#ce7676',
 		current:'#7676ce'
 	},
-	template:{
-		meta:'<div class=""></div></a><a href=""><div class=""></div></a></div>',
-		date:'<div class=""><div class=""></div></div>',
-		length:'<div class=""><div class=""></div></div>',
-		viz:{
-			base:'<div class=""></div>',
-			leg:{
-				base:'<div class=""></div>',
-				enroll:'<div class=""></div>',
-				upper:'<div class=""></div>',
-				lower:'<div class=""></div>',
-				inside:'<div class=""><div></div></div><div class=""></div><div class=""></div><div class=""></div>'
-
-			},
-			end:'<div class=""><div class=""></div><div class=""></div></div>'  
-		}
-	},
 	search:{
 		rows:[]
 	},
@@ -49,7 +32,7 @@ var legTrack = {
 	filters:[],
 	data:[],
 	output:[],
-	populateApp: function(temp, out){
+	populateApp: function(out){
 		/* Populate bill data, row by row */
 		var body = document.getElementById('leg-body');
 		var fragRow = [];
@@ -128,7 +111,7 @@ var legTrack = {
 			upper.appendChild(floor);
 			fragRow[5] = upper;
 
-			leg.appendChild(enroll);
+			//leg.appendChild(enroll);
 			leg.appendChild(fragRow[5]);
 			leg.appendChild(fragRow[6]);
 			fragRow[7] = leg;
@@ -141,6 +124,8 @@ var legTrack = {
 			row.appendChild(fragRow[2]);
 			row.appendChild(fragRow[3]);
 			row.appendChild(fragRow[8]);
+			row.setAttribute('origin', out[i].meta.chamber);
+			row.setAttribute('item', i);
 			fragRow[0] = row;
 
 			body.appendChild(fragRow[0]);
@@ -148,9 +133,8 @@ var legTrack = {
 			/* FIRST CHAMBER
 			=============================================*/
 			/* chamber of origin */
-			var origin = $('.leg-row:eq('+i+') .leg-leg').attr('origin'), org = '.leg-upper', next='.leg-lower',chamber='upper',nxtchamber='lower';
+			var origin = $('.leg-row:eq('+i+')').attr('origin'), org = '.leg-upper', next='.leg-lower',chamber='upper',nxtchamber='lower';
 			if (origin === 'lower'){org='.leg-lower';next='.leg-upper';chamber='lower';nxtchamber='upper'}
-
 			/* viz conditionals */
 			if (out[i].status.flags.introduced != null){
 				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-intro').add('.leg-row:eq('+i+') .leg-leg '+org+' .leg-level').css({'background': this.colors.current, color: '#fff'});
@@ -229,14 +213,14 @@ var legTrack = {
 			=============================================*/
 			//reconcile
 			if (out[i].status.flags.endGame.reconcile[chamber] == true){
-				$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.passed);
+				//$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.passed);
 		
 				if (out[i].status.flags.endGame.governor.enrolled == true){
 					$('.leg-row:eq('+i+') .leg-end .leg-gov div:eq(0)').css('background', this.colors.current);
 				}
 			}
 			else if (out[i].status.flags.endGame.reconcile[chamber] === false){
-				$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.failed);
+				//$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.failed);
 				continue;
 			}
 
@@ -327,7 +311,7 @@ var legTrack = {
 
 		}
 
-		this.populateApp(this.template, out);
+		this.populateApp(out);
 	},
 	setActions: function(act, flag, e){
 		/* IMPORTANT will flag the stage of the bill */
@@ -599,7 +583,6 @@ var legTrack = {
 			}
 		    $('#leg-search').val('');
 		})
-
 	},
 	searchTool: function(rows){
 		var val = $.trim($('#leg-search').val()).replace(/ +/g, ' ').toLowerCase();

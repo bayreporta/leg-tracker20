@@ -1,4 +1,4 @@
-import csv, json, urllib2, re, time
+import csv, json, re, time
 import sunlight
 
 #### API KEY ####
@@ -73,11 +73,10 @@ def grab_bills(cal):
 	
 ### CALL API AND RETREIVE DATA ###
 def bringSunlight(bills, cal):
-	tot = len(bills)
 	deets = []
-	for i in range(0,tot):
-		time.sleep(1)
-		deets.insert(i, sunlight.openstates.bill_detail(cal['state'],cal['session'], bills[i]))
+
+	for bills in bills:
+		deets.append(sunlight.openstates.bill_detail(cal['state'],cal['session'], bills))
 	
 	### OUTPUT BILL DETAILS ###
 	output_json('bills', deets)
@@ -101,10 +100,10 @@ def parse_meta(d):
 		data.insert(i, [d[i]['title'], test])	
 	return data
 	
-### DETERMINE AND APPLY FILTERS TO BILLS ###
+### DETERMINE AND APPLY MATCHES TO BILLS ###
 def apply_filters(d):
 	#d = import_json('meta')
-	rawFilter = import_csv('filters', 'rU')
+	rawFilter = import_csv('match', 'rU')
 	cleanFilter = []
 	filterTest = []
 
@@ -115,7 +114,7 @@ def apply_filters(d):
 		text = prog.search(str(rawFilter[i]))
 		cleanFilter.insert(ii, text.group())
 		ii += 1  
-
+	
 	### CHECK META TO FILTERS ###
 	length = len(d) + 1
 	iii = -1
@@ -137,8 +136,20 @@ def apply_filters(d):
 			else:
 				filterTest[i].insert(ii, False)	
 		iii += 1
-	output_json('filters',filterTest)
+	output_json('match',filterTest)
 	return filterTest
+
+### UNIFY ALL MATCHES INTO FILTERS FOR FRONTEND ###
+def unifyFilters():
+	m = import_json('match')
+	f = import_csv('filters', 'rU')
+
+	for i in range(0,len(f)):
+		cleaned = f[i][1].split(',')
+		f[i][1] = cleaned
+	del f[0]
+
+	output_json('filters', f)
 
 ## THE MAIN FUNCTION
 #======================================
@@ -161,6 +172,11 @@ def main():
 	### MATCH FILTERS ###
 	billsFiltered = apply_filters(billMeta)
 	
+	### UNITY OF FILTERS ###
+	unifyFilters()
+
+
+
 
 
 if __name__ == '__main__':

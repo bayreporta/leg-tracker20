@@ -8,10 +8,10 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 #leg-app .right {float:right;}
 #leg-app .height {height:60px;}
 #leg-app .align-center {text-align:center;}
-#leg-app .block {text-align:center;width:30%;float:left;}
+#leg-app .block {text-align:center;width:31.28%;float:left;}
 #leg-app .leg-end .block {width:50%;}
 #leg-app .full {height:60px;}
-#leg-app .half {height:29.3px;}
+#leg-app .half {height:29.5px;}
 #leg-app .mute {font-size:.8em;color:#aaa;}
 #leg-app .border {border-right: 1px #ddd solid;}
 #leg-app a {text-decoration: none;}
@@ -54,9 +54,9 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 		.leg-length>div:first-of-type {font-size: 1.5em;color: #aaa;padding-top:12%;}
 	.leg-viz, #leg-viz {width:50%;padding:0;margin:0;}
 		.leg-leg {width:80%;border-left: 1px solid #ddd;}
-			.leg-upper {width: 89%;border-bottom: 1px #ddd solid;}
+			.leg-upper {width: 100%;border-bottom: 1px #ddd solid;}
 				.leg-upper .leg-level {border-bottom: 1px #ddd solid;}
-			.leg-lower, #leg-progress {width: 89%;}
+			.leg-lower, #leg-progress {width: 100%;}
 				.leg-level {position:relative;border-right: 1px solid #ddd;width:6%;float:left;}
 					.leg-level>div {padding-top:4px;}
 				.leg-intro {}
@@ -94,4 +94,16 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 	.leg-meta, #leg-meta {width:37%;}
 	.leg-viz, #leg-viz {width:62%;}
 	.leg-leg,#leg-leg  {width:79%;}
+}
+
+@media screen and (max-width: 1321px){
+	#leg-app .block {width:31.22%;}
+}
+
+@media screen and (max-width: 670px){
+	#leg-app .block {width:31.2%;}
+}
+
+@media screen and (max-width: 570px){
+	#leg-app .block {width:31.1%;}
 }
