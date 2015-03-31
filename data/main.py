@@ -102,7 +102,6 @@ def parse_meta(d):
 	
 ### DETERMINE AND APPLY MATCHES TO BILLS ###
 def apply_filters(d):
-	#d = import_json('meta')
 	rawFilter = import_csv('match', 'rU')
 	cleanFilter = []
 	filterTest = []
@@ -118,9 +117,7 @@ def apply_filters(d):
 	### CHECK META TO FILTERS ###
 	length = len(d) + 1
 	iii = -1
-	print len(d)
 	for i in range(0,length):
-		print iii
 		filterTest.insert(i, [])
 		for ii in range(0,len(cleanFilter)):
 			if i == 0:

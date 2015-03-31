@@ -32,6 +32,16 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 	#leg-ask>div {min-height: 80px;}
 	#leg-ask>div:last-child div:last-of-type {float:none;}
 
+	#leg-filter {padding: 10px 1%;border: 1px #aaa solid;width: 20%;cursor: pointer;margin-bottom: 30px;position:relative;height:20px;}
+		#leg-filter-select {display:block;position: absolute;top: 0;left: 0;width:100%;}
+			#leg-filter-select p {margin: 10px;position: relative;font-size: .9em;color: #aaa;font-style: italic;}
+		#leg-filter-options {display:none;position: absolute;  top: -1px;left: -1px; z-index: 1000;  background: rgb(118, 118, 206); width: 100%;  border: #ddd solid 1px;  min-height: 80px;}
+			#leg-filter-options>div:first-of-type {border-bottom: 1px #fff solid;  margin: 0 10px;}
+				#leg-filter-options>div:first-of-type p {margin: 10px;  color: #fff;  font-size: .9em;  font-style: italic;}
+			#leg-filter-options>div:last-of-type { -webkit-column-count: 2; -moz-column-count: 2; column-count: 2; -webkit-column-gap: 10px; -moz-column-gap: 10px; column-gap: 10px;margin:0 10px;}
+		.leg-filter-option {color:#fff;font-size:.9em;padding: 5px 0;}
+		.leg-filter-option:hover {color:#eee;text-decoration: underline;}
+
 /* HEADER ROW 
 ==================================================*/
 #leg-hed {}

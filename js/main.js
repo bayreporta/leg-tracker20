@@ -4,6 +4,7 @@ var legTrack = {
 	calibrate:{
 		path:'bills',
 		filterpath:'filters',
+		matchpath:'match',
 		state:null,
 		session:null,
 		bills:[],
@@ -30,8 +31,55 @@ var legTrack = {
 		vetoed:false
 	},
 	filters:[],
+	match:[],
 	data:[],
 	output:[],
+	parseFilters: function(f){
+		
+		/* POPULATE FILTERS */
+		for (var i = 0; i < f.length ; i++){
+			$('#leg-filter-options>div:last-of-type').append('<p class="leg-filter-option" type="'+i+'">'+ f[i][0] + '</p>');
+		}
+
+		/* SET EVENTS FOR FILTER AREA */
+		$('#leg-filter-select').on('click', function(){
+			$('#leg-filter-options').css('display','block');
+		});
+
+		$('#leg-filter-options>div:first-of-type').on('click', function(){
+			$('#leg-filter').css('background','#fff');
+			$('#leg-filter p').css('color','#aaa');
+			$('#leg-filter-options').css('display','none');
+			$('#leg-filter-select p').text('Select Filter...');
+
+			$('.leg-row').fadeIn(500);
+		})
+
+		$('.leg-filter-option').on('click', function(){
+			var type = parseInt($(this).attr('type'));
+
+			$('#leg-filter').css('background','rgb(118, 118, 206)');
+			$('#leg-filter p').css('color','#fff');
+			$('#leg-filter-options').css('display','none');
+			$('#leg-filter-select p').text($(this).text());
+
+			$('.leg-row').fadeOut(500);
+
+			legTrack.applyFilter(type, f, legTrack.match);
+		})
+
+	},
+	applyFilter: function(t, f, m){
+		for (var i=0 ; i < this.calibrate.totalBills; i++){
+			for (var ii=0 ; ii < f[t][1].length;ii++){
+				var test = parseInt(f[t][1][ii]);
+				if (m[i+1][test]){
+					$('.leg-row:eq('+i+')').fadeIn(500);
+					break;
+				}
+			}
+		}
+	},
 	populateApp: function(out){
 		/* Populate bill data, row by row */
 		var body = document.getElementById('leg-body');
@@ -462,14 +510,17 @@ var legTrack = {
 	},
 	importJSON: function(path){
 		$.getJSON('data/' + path + '.json', function (d) {
-			if (path === 'bills'){
+			if (path === legTrack.calibrate.path){
 				legTrack.data = d; 
 				legTrack.calibrate.totalBills = legTrack.data.length;
 				legTrack.parseDetails(legTrack.data, legTrack.calibrate.totalBills, legTrack.output);
 			}
-			else if (path === 'filters'){
+			else if (path === legTrack.calibrate.filterpath){
 				legTrack.filters = d;
-				console.log(d)
+				legTrack.parseFilters(legTrack.filters);
+			}
+			else if (path === legTrack.calibrate.matchpath){
+				legTrack.match = d;
 			}
 		});
 	},
@@ -600,6 +651,6 @@ var legTrack = {
 	}
 }
 
-window.onload = function(){legTrack.importJSON(legTrack.calibrate.filterpath);legTrack.importJSON(legTrack.calibrate.path);}
+window.onload = function(){legTrack.importJSON(legTrack.calibrate.matchpath);legTrack.importJSON(legTrack.calibrate.filterpath);legTrack.importJSON(legTrack.calibrate.path);}
 
 
