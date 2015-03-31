@@ -118,8 +118,7 @@ var legTrack = {
 							commit2 .className = 'leg-commit block half';
 							floor2 .className = 'leg-floor block half';
 					endgame .className = 'leg-end left height full';	
-						gov .className = 'leg-gov block full';
-						chaptered .className = 'leg-chapter block full';
+						gov .className = 'leg-gov full';
 
 			/* APPEND SUB-SECTIONS */
 			title.appendChild(document.createTextNode(out[i].meta.bill_id));
@@ -139,7 +138,6 @@ var legTrack = {
 			fragRow[3] = length;
 
 			endgame.appendChild(gov);
-			endgame.appendChild(chaptered);
 			fragRow[4] = endgame;
 
 			div.appendChild(document.createTextNode(this.calibrate.upperName));
@@ -652,5 +650,20 @@ var legTrack = {
 }
 
 window.onload = function(){legTrack.importJSON(legTrack.calibrate.matchpath);legTrack.importJSON(legTrack.calibrate.filterpath);legTrack.importJSON(legTrack.calibrate.path);}
+
+window.onscroll = function(){
+	var element = document.getElementById('leg-hed')
+	var tester = element.getBoundingClientRect()
+	
+	if (tester.top <= 0){
+		$('#leg-hed-row').css({
+			'position':'fixed',
+			'top':0
+		});
+	}
+	else {
+		$('#leg-hed-row').css('position','relative');
+	}
+}
 
 

@@ -22,13 +22,14 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 /* FILTERS 
 ==================================================*/
 #leg-filters {width:100%;}
-	.leg-button {padding: 8px;display: inline;background: #ddd;color: #333;cursor: pointer;margin: 0 10px 0 0;font-size: .8em;border-radius: 5px;}
+	.leg-button {padding: 8px;display: inline;background: #ddd;color: #333;cursor: pointer;margin: 0 10px 10px 0;font-size: .8em;border-radius: 5px;}
 	.leg-button:hover {background:#aaa;}
 	#leg-search {height:20px;width:30%;border:1px solid #ccc; float:left;max-width:300px;margin:-3px 0 0 0 !important;}
 	#leg-search-options {margin:0 0 20px 0 !important;}
 	#leg-search-options div:first-of-type {float:left;}
 	#execute-search, #reset-search {margin:0 0 0 20px !important;padding:5px;border-radius: 0;}
 
+	#leg-ask {height:auto;}
 	#leg-ask>div {min-height: 80px;}
 	#leg-ask>div:last-child div:last-of-type {float:none;}
 
@@ -51,6 +52,7 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 		#leg-length {width:5%;padding:0 1%;}
 		#leg-leg {width:80%;}
 		#leg-level {width:6%;height:60px;}
+		#leg-gov {text-align: center;}
 
 /* BODY 
 ==================================================*/			
@@ -104,6 +106,8 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 	.leg-meta, #leg-meta {width:37%;}
 	.leg-viz, #leg-viz {width:62%;}
 	.leg-leg,#leg-leg  {width:79%;}
+	#leg-filter {width:90%;}
+
 }
 
 @media screen and (max-width: 1321px){
@@ -116,4 +120,6 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 
 @media screen and (max-width: 570px){
 	#leg-app .block {width:31.1%;}
+	#leg-ask {height:140px;}
+	#leg-search {width:65%;}
 }
