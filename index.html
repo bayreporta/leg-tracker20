@@ -7,6 +7,35 @@
 </head>
 <body>
 	<div id="leg-app">
+		<div id="leg-def">
+			<div id="leg-toggle" status="false"><p>Click to Expand Definitions</p></div>
+			<div id="leg-toggled">
+				<div id="leg-colors">
+					<div class="leg-color">
+						<div></div>
+						<div><p>Passed</p></div>
+					</div>
+					<div class="leg-color">
+						<div></div>
+						<div><p>Current</p></div>
+					</div>
+					<div class="leg-color">
+						<div></div>
+						<div><p>Failed</p></div>
+					</div>
+				</div>
+				<div id="leg-def-col">
+					<p><strong>Bill Title</strong>: Bill number and title.</p>
+					<p><strong>Last Action</strong>: Date when legislators last took action on the bill.</p>
+					<p><strong>Days</strong>: Number of days since the last action was taken</p>
+					<p><strong>Introduced</strong>: Bill was introduced in chamber.</p>
+					<p><strong>Committee</strong>: Status of the bill within committees.</p>
+					<p><strong>Chamber</strong>: Status of the bill in the legislative chamber as a whole.</p>
+					<p><strong>Governor</strong>: Status of the bill once it reaches Governor for final decision.</p>
+					<p><strong>S and A</strong>: The "S" row refers to actions in the Senate, while "A" row refers to actions in the Assembly.</p>
+				</div>
+			</div>
+		</div>
 		<div id="leg-filters">
 			<div id="leg-search-options">
 				<input id="leg-search" type="text" style="height:24px;" placeholder="Type to Search">
@@ -31,7 +60,7 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<div id="leg-hed" class="relative">
 			<div id="leg-hed-row">
 				<div id="leg-meta" class="left header"><div>Bill Title</div></div>
@@ -44,7 +73,7 @@
 								<div id="leg-level" class="left header"></div>
 								<div id="leg-intro" class="header block"><div>Introduced</div></div>
 								<div id="leg-commit" class="header block"><div>Committee</div></div>
-								<div id="leg-floor" class="header block"><div>Chamber Action</div></div>
+								<div id="leg-floor" class="header block"><div>Chamber</div></div>
 							</div>
 					</div>
 					<div id="leg-end" class="left height">
@@ -53,15 +82,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="leg-body" class="relative"></div>
-		<div id="leg-foot" class="relative"></div>
-	</div>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
-</body>
-</html>
-	<div id="leg-app">
-		<div id="leg-hed" class="relative"></div>
 		<div id="leg-body" class="relative"></div>
 		<div id="leg-foot" class="relative"></div>
 	</div>

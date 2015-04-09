@@ -25,7 +25,7 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 	.leg-button {padding: 8px;display: inline;background: #ddd;color: #333;cursor: pointer;margin: 0 10px 10px 0;font-size: .8em;border-radius: 5px;}
 	.leg-button:hover {background:#aaa;}
 	#leg-search {height:20px;width:30%;border:1px solid #ccc; float:left;max-width:300px;margin:-3px 0 0 0 !important;}
-	#leg-search-options {margin:0 0 20px 0 !important;}
+	#leg-search-options {margin:20px 0 !important;}
 	#leg-search-options div:first-of-type {float:left;}
 	#execute-search, #reset-search {margin:0 0 0 20px !important;padding:5px;border-radius: 0;}
 
@@ -43,6 +43,20 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 		.leg-filter-option {color:#fff;font-size:.9em;padding: 5px 0;}
 		.leg-filter-option:hover {color:#eee;text-decoration: underline;}
 
+/* DEFINITIONS  
+==================================================*/
+#leg-def {overflow: auto;border-bottom: 1px #ddd solid;padding-bottom:15px;}
+	#leg-toggle {cursor: pointer;}
+		#leg-toggle p {color:#7676ce;}
+		#leg-toggle:hover p {color:#4141b6;}
+	#leg-toggled {margin: 20px 0;display:none;}
+		#leg-color {clear:both;}
+			.leg-color {float:left;width:80px;margin-right: 20px;}
+			.leg-color>div:first-of-type {width:20px;height:20px;background:#aaa;float:left;margin-right:5px;}
+			.leg-color>div:last-of-type {float:left;}
+		#leg-def-col {width:30%;padding:15px 0;clear:both;-webkit-column-count: 2; -moz-column-count: 2; column-count: 2; -webkit-column-gap: 10px; -moz-column-gap: 10px; column-gap: 10px;}
+			#leg-def-col p {font-size: .9em;margin-bottom: 10px;}
+
 /* HEADER ROW 
 ==================================================*/
 #leg-hed {}
@@ -56,7 +70,7 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 
 /* BODY 
 ==================================================*/			
-#leg-body {margin-top:60px;}
+#leg-body {}
 	.leg-meta, #leg-meta {width:35%;padding:5px 1% 5px 0;height:35px;}
 		.leg-title {font-size: .9em;color:#333;}
 		.leg-sum {font-size:.8em;color:#aaa;}
@@ -116,6 +130,7 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 
 @media screen and (max-width: 670px){
 	#leg-app .block {width:31.2%;}
+	#leg-def-col {width:100%;}
 }
 
 @media screen and (max-width: 570px){

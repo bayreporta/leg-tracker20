@@ -13,6 +13,7 @@ var legTrack = {
 		full: [],
 		upperName: 'S',
 		lowerName: 'A',
+		today: new Date(),
 		upper:40, //make dynamic
 		lower:80 //make dynamic
 	},
@@ -291,6 +292,9 @@ var legTrack = {
 		this.applyQuestions(this.questions);
 	},
 	parseDetails: function(d, tot, out){
+		/* parse today date */
+		var today = Date.parse(legTrack.calibrate.today);
+
 		/* grab the meat and potatoes for the app front-end */
 		for (var i=0 ; i < tot ; i++){
 			out[i] = new Object();
@@ -305,7 +309,7 @@ var legTrack = {
 					out[i].meta.lastStr = this.convertDate(d[i].action_dates.last);
 					out[i].meta.firstNum = Date.parse(d[i].action_dates.first);
 					out[i].meta.lastNum = Date.parse(d[i].action_dates.last);
-					out[i].meta.daysSinceFirst = Math.round((out[i].meta.lastNum - out[i].meta.firstNum) / 86400000);
+					out[i].meta.daysSinceFirst = Math.round((today - out[i].meta.lastNum) / 86400000);
 					out[i].meta.chamber = d[i].chamber;
 					out[i].meta.subjects = legTrack.data[i][1];
 
@@ -665,5 +669,20 @@ window.onscroll = function(){
 		$('#leg-hed-row').css('position','relative');
 	}
 }
+
+$(document).ready(function(){
+	$('#leg-toggle').on('click', function(){
+		var t = $(this).attr('status');
+
+		if (t === 'false'){
+			$('#leg-toggled').fadeIn(500);
+			$(this).attr('status', 'true');
+		}
+		else {
+			$('#leg-toggled').fadeOut(500);
+			$(this).attr('status', 'false');
+		}
+	})
+})
 
 
