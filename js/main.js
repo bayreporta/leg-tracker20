@@ -15,7 +15,8 @@ var legTrack = {
 		lowerName: 'A',
 		today: new Date(),
 		upper:40, //make dynamic
-		lower:80 //make dynamic
+		lower:80, //make dynamic
+		featured: ['AB 147']
 	},
 	colors:{
 		passed:'#76ce76',
@@ -26,6 +27,7 @@ var legTrack = {
 		rows:[]
 	},
 	questions:{
+		featured:false,
 		legPass:false,
 		legKill:false,
 		signed:false,
@@ -176,6 +178,14 @@ var legTrack = {
 			fragRow[0] = row;
 
 			body.appendChild(fragRow[0]);
+
+			/* FEATURED BILL?
+			=============================================*/
+			this.calibrate.featured.forEach(function(bill){
+				if (bill === out[i].meta.bill_id){
+					$('.leg-row:eq('+i+')').attr('featured', 'y');
+				}
+			});
 
 			/* FIRST CHAMBER
 			=============================================*/
@@ -527,6 +537,7 @@ var legTrack = {
 				legTrack.data = d; 
 				legTrack.calibrate.totalBills = legTrack.data.length;
 				legTrack.parseDetails(legTrack.data, legTrack.calibrate.totalBills, legTrack.output);
+				$('.leg-questions:eq(0)').click();
 			}
 			else if (path === legTrack.calibrate.filterpath){
 				legTrack.filters = d;
@@ -538,7 +549,7 @@ var legTrack = {
 		});
 	},
 	resetQuestions:function(q){
-		q.legPass = false, q.legKill = false, q.signed = false, q.vetoed = false;
+		q.featured = false, q.legPass = false, q.legKill = false, q.signed = false, q.vetoed = false;
 	},
 	applyQuestions:function(q){
 		$('.leg-questions').on('click', function(){
@@ -553,6 +564,25 @@ var legTrack = {
 
 			switch(question){
 				case '0':
+					var theseRows = document.querySelectorAll('[featured=y]');
+					if (q.featured == false){
+						for (var i=0 ; i < theseRows.length ; i++){
+							theseRows[i].style.display = "block";
+				    	}
+				    	$('.leg-questions').css('background','#ddd');
+				    	$(this).css('background','#aaa');
+				    	legTrack.resetQuestions(q);
+						q.featured = true;
+					}
+					else {
+						for (var i = 0 ; i < allRows.length ; i++){
+							allRows[i].style.display = "block";
+						}
+						$('.leg-questions').css('background','#ddd');
+						q.featured = false;
+					}
+					break;
+				case '1':
 					var theseRows = document.querySelectorAll('[leg-pass=y]');
 					if (q.legPass == false){
 						for (var i=0 ; i < theseRows.length ; i++){
@@ -571,7 +601,7 @@ var legTrack = {
 						q.legPass = false;
 					}
 					break;
-				case '1':
+				case '2':
 					var theseRows = document.querySelectorAll('[leg-kill=y]');
 					if (q.legKill == false){
 						for (var i=0 ; i < theseRows.length ; i++){
@@ -590,7 +620,7 @@ var legTrack = {
 						q.legKill = false;
 					}
 					break;			
-				case '2':
+				case '3':
 					var theseRows = document.querySelectorAll('[signed=y]');
 					if (q.signed == false){
 
@@ -610,7 +640,7 @@ var legTrack = {
 						q.signed = false;
 					}
 					break;	
-				case '3':
+				case '4':
 					var theseRows = document.querySelectorAll('[vetoed=y]');
 					if (q.vetoed == false){
 						for (var i=0 ; i < theseRows.length ; i++){
