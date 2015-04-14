@@ -16,7 +16,7 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 #leg-app .border {border-right: 1px #ddd solid;}
 #leg-app a {text-decoration: none;}
 #leg-app a:hover {text-decoration: underline;color:#aaa;}
-.leg-row {width:100%;border-bottom:1px #aaa solid;padding:0;}
+.leg-row {width:100%;border-bottom:1px #000 solid;padding:0;}
 
 
 /* FILTERS 
@@ -52,6 +52,9 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 	#leg-toggled {margin: 20px 0;display:none;}
 		#leg-color {clear:both;}
 			.leg-color {float:left;width:80px;margin-right: 20px;}
+			.leg-color:first-of-type>div:first-of-type {background:#76ce76;}
+			.leg-color:last-of-type>div:first-of-type {background:#ce7676;}
+			.leg-color:nth-of-type(2)>div:first-of-type {background:#7676ce;}
 			.leg-color>div:first-of-type {width:20px;height:20px;background:#aaa;float:left;margin-right:5px;}
 			.leg-color>div:last-of-type {float:left;}
 		#leg-def-col {width:30%;padding:15px 0;clear:both;-webkit-column-count: 2; -moz-column-count: 2; column-count: 2; -webkit-column-gap: 10px; -moz-column-gap: 10px; column-gap: 10px;}

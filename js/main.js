@@ -201,11 +201,11 @@ var legTrack = {
 				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-intro').css('background', this.colors.passed);
 				continue;
 			}
-
 			//floor
 			if (out[i].status.flags[chamber].action == true){
 				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+org+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+org+'').css('background', this.colors.passed);
 				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-intro').add('.leg-row:eq('+i+') .leg-leg '+next+' .leg-level').css({'background': this.colors.current, color: '#fff'});
+				
 			}
 			else if (out[i].status.flags[chamber].action == false){
 				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+org+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+org+'').css('background', this.colors.failed);
@@ -213,6 +213,9 @@ var legTrack = {
 				continue;
 			}
 			else if (out[i].status.flags[chamber].floor == true){
+				if (i == 43){
+					console.log('current')
+				}
 				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').css('background', this.colors.current);
 			}
 
@@ -236,30 +239,38 @@ var legTrack = {
 			}
 
 			//floor
-			if (out[i].status.flags[chamber].action == true){
+			if (out[i].status.flags[nxtchamber].action == true){
 				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+next+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+next+'').css('background', this.colors.passed);
+
+				if (out[i].status.flags.endGame.governor.enrolled == true){
+					$('.leg-row:eq('+i+') .leg-end .leg-gov').css('background', this.colors.current);
+					$('.leg-row:eq('+i+')').attr('leg-pass', 'y');
+				}	
 			}
-			else if (out[i].status.flags[chamber].action == false){
+			else if (out[i].status.flags[nxtchamber].action == false){
 				$('.leg-row:eq('+i+') .leg-leg '+next+' .leg-floor').add('.leg-row:eq('+i+') .leg-leg '+next+' .leg-level').add('.leg-row:eq('+i+') .leg-leg '+next+'').css('background', this.colors.failed);
 				$('.leg-row:eq('+i+')').attr('leg-killed', 'y');
 				continue;
 			}
-			else if (out[i].status.flags[chamber].floor == true){
+			else if (out[i].status.flags[nxtchamber].floor == true){
 				$('.leg-row:eq('+i+') .leg-leg '+org+' .leg-floor').css('background', this.colors.current);
-				if (out[i].status.flags.endGame.reconcile[chamber] != null){
+				/*if (out[i].status.flags.endGame.reconcile[nxtchamber] != null){
 					$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.current);
 				}
 				else if (out[i].status.flags.endGame.governor.enrolled == true){
 					$('.leg-row:eq('+i+') .leg-end .leg-gov').css('background', this.colors.current);
 					$('.leg-row:eq('+i+')').attr('leg-pass', 'y');
-				}
-			
+				}*/
 			}
+
+			if (i == 43){
+					console.log('passed')
+				}
 
 			/* END GAME
 			=============================================*/
 			//reconcile
-			if (out[i].status.flags.endGame.reconcile[chamber] == true){
+			/*if (out[i].status.flags.endGame.reconcile[chamber] == true){
 				//$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.passed);
 		
 				if (out[i].status.flags.endGame.governor.enrolled == true){
@@ -269,7 +280,7 @@ var legTrack = {
 			else if (out[i].status.flags.endGame.reconcile[chamber] === false){
 				//$('.leg-row:eq('+i+') .leg-leg .leg-enroll').add('.leg-row:eq('+i+') .leg-leg').css('background', this.colors.failed);
 				continue;
-			}
+			}*/
 
 			//governor
 			if (out[i].status.flags.endGame.governor.signed == true){
