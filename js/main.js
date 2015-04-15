@@ -16,7 +16,7 @@ var legTrack = {
 		today: new Date(),
 		upper:40, //make dynamic
 		lower:80, //make dynamic
-		featured: ['AB 147']
+		featured: ['SB 277','AB 47','SB 645','AB 854','SB 774','AB 631','SB 191','AB 141','AB 1078','SB 499','SB 172','AB 288']
 	},
 	colors:{
 		passed:'#76ce76',
@@ -31,7 +31,8 @@ var legTrack = {
 		legPass:false,
 		legKill:false,
 		signed:false,
-		vetoed:false
+		vetoed:false,
+		days: false
 	},
 	filters:[],
 	match:[],
@@ -186,6 +187,13 @@ var legTrack = {
 					$('.leg-row:eq('+i+')').attr('featured', 'y');
 				}
 			});
+
+			/* DATE OF LAST ACTION
+			=============================================*/
+			if (out[i].meta.daysSinceFirst >= 30){
+				$('.leg-row:eq('+i+')').attr('days', 'y');
+			}
+			
 
 			/* FIRST CHAMBER
 			=============================================*/
@@ -549,11 +557,12 @@ var legTrack = {
 		});
 	},
 	resetQuestions:function(q){
-		q.featured = false, q.legPass = false, q.legKill = false, q.signed = false, q.vetoed = false;
+		q.featured = false, q.legPass = false, q.legKill = false, q.signed = false, q.vetoed = false, q.days = false;
 	},
 	applyQuestions:function(q){
 		$('.leg-questions').on('click', function(){
 			var question = $(this).attr('filter');
+			console.log(question)
 
 			//GET AND RESET ALL ROWS AND SEARCH
 			var allRows =  document.getElementsByClassName('leg-row');
@@ -657,6 +666,26 @@ var legTrack = {
 						}
 						$('.leg-questions').css('background','#ddd');
 						q.vetoed = false;
+					}
+					break;
+				case '5':
+					var theseRows = document.querySelectorAll('[days=y]');
+					if (q.days == false){
+						console.log('yes')
+						for (var i=0 ; i < theseRows.length ; i++){
+							theseRows[i].style.display = "block";
+				    	}
+				    	$('.leg-questions').css('background','#ddd');
+				    	$(this).css('background','#aaa');
+				    	legTrack.resetQuestions(q);
+						q.days = true;
+					}
+					else {
+						for (var i = 0 ; i < allRows.length ; i++){
+							allRows[i].style.display = "block";
+						}
+						$('.leg-questions').css('background','#ddd');
+						q.days = false;
 					}
 					break;
 			}
