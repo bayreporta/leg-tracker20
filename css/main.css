@@ -57,7 +57,7 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 			.leg-color:nth-of-type(2)>div:first-of-type {background:#7676ce;}
 			.leg-color>div:first-of-type {width:20px;height:20px;background:#aaa;float:left;margin-right:5px;}
 			.leg-color>div:last-of-type {float:left;}
-		#leg-def-col {width:30%;padding:15px 0;clear:both;-webkit-column-count: 2; -moz-column-count: 2; column-count: 2; -webkit-column-gap: 10px; -moz-column-gap: 10px; column-gap: 10px;}
+		#leg-def-col {width:98%;padding:15px 0;clear:both;-webkit-column-count: 4; -moz-column-count: 4; column-count: 4; -webkit-column-gap: 10px; -moz-column-gap: 10px; column-gap: 10px;}
 			#leg-def-col p {font-size: .9em;margin-bottom: 10px;}
 
 /* HEADER ROW 

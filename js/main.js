@@ -128,6 +128,7 @@ var legTrack = {
 			title.appendChild(document.createTextNode(out[i].meta.bill_id));
 			sum.appendChild(document.createTextNode(out[i].meta.title))
 			link.setAttribute('href', out[i].meta.source);
+			link.setAttribute('target', '_blank');
 			link.appendChild(title)
 			link.appendChild(sum);
 			meta.appendChild(link);
