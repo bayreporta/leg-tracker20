@@ -46,10 +46,10 @@ body, p {padding:0;margin:0;font-family: 'roboto Condensed', san-serif;}
 /* DEFINITIONS  
 ==================================================*/
 #leg-def {overflow: auto;border-bottom: 1px #ddd solid;padding-bottom:15px;}
-	#leg-toggle {cursor: pointer;}
+	#leg-toggle {cursor: pointer;display:none;}
 		#leg-toggle p {color:#7676ce;}
 		#leg-toggle:hover p {color:#4141b6;}
-	#leg-toggled {margin: 20px 0;display:none;}
+	#leg-toggled {margin: 20px 0;display:block;}
 		#leg-color {clear:both;}
 			.leg-color {float:left;width:80px;margin-right: 20px;}
 			.leg-color:first-of-type>div:first-of-type {background:#76ce76;}
